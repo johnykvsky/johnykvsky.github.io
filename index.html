@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Yet another online JSON parser, formatter and validator</title> 
+    <meta charset="utf-8">
+    <link rel="icon" type="image/x-icon" href="img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Analyze your JSON string as you type with an online Javascript parser, featuring tree view and syntax highlighting. Processing is done locally: no data send to server.">
+    <meta name="author" content="Johny Kvsky">
+    <meta name="keywords" content="JSON,syntax highlighting,validator,linter,json parser,json formatter,json validator,tree view,beautifier,pretty,parser,json,online,tool,free">
+    <link rel="stylesheet" href="css/normalize.min.css">
+    <link rel="stylesheet" href="css/skeleton.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head> 
+<body>
+    <div class="container-fluid">
+    <div class="row">
+      <div class="sixteen columns">
+        <p id="result"></p>
+      </div>
+    </div>
+      <div class="row">
+        <div class="four columns">
+          <span class="help-text">paste json here</span>
+          <textarea id="source" placeholder=" Enter json string here...">{"null":null,"boolean":[true,false],"number":[0,1.5,2e4,-1234567890],"strings":{"firstname":"Jane","lastname":"Gray","hobbies":["X-Ray","Flying",{"teams":["X-Men","Mutants"]}],"address":"unknown"}}</textarea> 
+          <button class="btn btn-sm btn-secondary" id="wordwrap">Results word wrap on/off</button>
+        </div>
+        <div class="twelve columns">
+          <span class="help-text" id="select_results"><a href="#">select results</a></span>
+          <pre id="output"></pre>
+        </div>
+      </div>
+      <br />
+      <p class="footer">by <a href="https://github.com/johnykvsky/johnykvsky.github.io">Johny Kvsky</a></p>
+    </div>
+    <script src="js/jsonlint.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script>parseJson();</script>
+</body> 
+</html> 
