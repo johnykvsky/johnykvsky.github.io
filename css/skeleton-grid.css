@@ -152,7 +152,7 @@
 .container-fluid .full-width.column,.full-width.columns            { width:100%; margin-left:0; margin-right:0}
 
 
-@media only screen and (min-width: 400px) and (max-width: 767px){
+@media only screen and (max-width: 768px){
     .container{
         width:100%
     }
