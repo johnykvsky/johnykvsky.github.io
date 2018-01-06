@@ -1,6 +1,6 @@
 body {padding-top: 10px;}
 @media only screen and (max-width: 768px){
-    body {min-width: 480px;}
+    body {min-width: 350px;}
 }
 .row {margin-bottom:0}
 
