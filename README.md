@@ -11,6 +11,10 @@ Yet, another online JSON parser, formatter and validator. Quite simple and strai
 - Optional one-click result word wrap
 - Optional one-click result selecting (for copy/paste)
 
+## Demo
+
+Here you go: [https://johnykvsky.github.io][link-demo]
+
 ## Credits
 
 - [johnykvsky][link-author]
@@ -32,3 +36,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-dgamache]: https://github.com/dhg/Skeleton
 [link-atomicpages]: http://atomicpages.github.io/skeleton-sass
 [link-javascriptkit]: http://www.javascriptkit.com/javatutors/copytoclipboard.shtml
+[link-demo]: https://johnykvsky.github.io
