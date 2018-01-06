@@ -6,6 +6,16 @@
     padding:0 2rem;
     box-sizing:border-box 
 }
+
+.container-fluid {
+    position:relative;
+    width:100%;
+    max-width:100%;
+    margin:0 auto;
+    padding:0 2rem;
+    box-sizing:border-box 
+}
+
 .column,
 .columns {
     width:100%;
@@ -17,19 +27,31 @@
 @media (min-width: 400px) {
   .container {
     width: 85%;
-    padding: 0; }
+    padding: 0; 
+  }
+
+  .container-fluid {
+    width: 85%;
+    padding: 0; 
+  }
 }
 
 /* For devices larger than 550px */
 @media (min-width: 550px) {
   .container {
-    width: 80%; }
+    width: 80%;
+  }
+  .container-fluid {
+    width: 80%;
+  }
   .column,
   .columns {
-    margin-left: 4%; }
+    margin-left: 4%; 
+  }
   .column:first-child,
   .columns:first-child {
-    margin-left: 0; }
+    margin-left: 0; 
+  }
 }
 
 /* #Main - Fixed width 12 Column Widths */
@@ -129,7 +151,71 @@
 
 .container-fluid .full-width.column,.full-width.columns            { width:100%; margin-left:0; margin-right:0}
 
+
+@media only screen and (min-width: 400px) and (max-width: 767px){
+    .container{
+        width:100%
+    }
+    .container .column,.container .columns{
+        margin-left:2%;
+        margin-right:2%
+    }
+    .container .one.column{
+        width:100%
+    }
+    .container .one.columns,.container .two.columns,.container .three.columns,.container .four.columns,.container .five.columns,.container .six.columns,.container .seven.columns,.container .eight.columns,.container .nine.columns,.container .ten.columns,.container .eleven.columns,.container .twelve.columns{
+        width:96%
+    }
+    .container .one-third.column{
+        width:96%
+    }
+    .container .two-thirds.column{
+        width:96%
+    }
+    .container .full-width.columns{
+        width:100%;
+        margin-left:0;
+        margin-right:0
+    }
+    .container .offset-by-one,.container .offset-by-two,.container .offset-by-three,.container .offset-by-four,.container .offset-by-five,.container .offset-by-six,.container .offset-by-seven,.container .offset-by-eight,.container .offset-by-nine,.container .offset-by-ten,.container .offset-by-eleven{
+        padding-left:0
+    }
+
+    .container-fluid{
+        width:100%
+    }
+    .container-fluid .column,.container-fluid .columns{
+        margin-left:2%;
+        margin-right:2%
+    }
+    .container-fluid .one.column{
+        width:100%
+    }
+    .container-fluid .one.columns,.container-fluid .two.columns,.container-fluid .three.columns,.container-fluid .four.columns,.container-fluid .five.columns,.container-fluid .six.columns,.container-fluid .seven.columns,.container-fluid .eight.columns,.container-fluid .nine.columns,.container-fluid .ten.columns,.container-fluid .eleven.columns,.container-fluid .twelve.columns,.container-fluid .thirteen.columns,.container-fluid .fourteen.columns,.container-fluid .fifteen.columns{
+        width:96%
+    }
+    .container-fluid .one-third.column{
+        width:96%
+    }
+    .container-fluid .two-thirds.column{
+        width:96%
+    }
+    .container-fluid .full-width.columns{
+        width:100%;
+        margin-left:0;
+        margin-right:0
+    }
+}
+
 .container:after{
+    content:"\0020";
+    display:block;
+    height:0;
+    clear:both;
+    visibility:hidden
+}
+
+.container-fluid:after{
     content:"\0020";
     display:block;
     height:0;
