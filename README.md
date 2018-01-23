@@ -6,12 +6,12 @@ Yet, another online JSON parser, formatter and validator. Quite simple and strai
 
 - No data is send to server. Parsing/formatting/validation is in browser, client-side. Safety first! ;)
 - Very simple. No fancy menus, multiple options and so on. Just paste and check results.
-- Very light, no heavy js libraries (jQuery...) or css frameworks (Bootstrap...). Pure HTML, CSS and pure JavaScript.
+- Very light, no heavy js libraries (jQuery...) or css frameworks (Bootstrap...). Clean HTML, CSS and pure JavaScript.
 - **JSON can be pasted in multiple lines** (good for copy/paste, ie. from logs opened in nano).
 - Optional one-click result word wrap
 - Optional one-click result selecting (for copy/paste)
 
-Non minified classes can be found [here][link-jkskeletoncss] 
+Non minified Skeleton css classes can be found [here][link-jkskeletoncss] 
 
 ## Demo
 

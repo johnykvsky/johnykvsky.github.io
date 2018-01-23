@@ -26,7 +26,12 @@ function syntaxHighlight(json) {
 function parseJson() {
   try {
     var input = document.getElementById("source").value;
-    if (input == '') return;
+    if (input == '') {
+      document.getElementById("result").innerHTML = '';
+      document.getElementById("result").className = "";
+      document.getElementById("output").innerHTML = '';
+      return;
+    }
     //remove new lines
     input = input.replace(/(?:\r\n|\r|\n)/g, '');
     var result = jsonlint.parse(input);
