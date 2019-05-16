@@ -1,15 +1,30 @@
 # Online JSON parser, formatter, validator
+# Online Javascript UUID v4 generator
+# Online Javascript Epoch / Timestamp converter
 
 Yet, another online JSON parser, formatter and validator. Quite simple and straightforward: type or paste JSON on the left, see user friendly version on the righ, check any errors at the top.
+Pure Javascript UUID v4 generator
+Pure Javascript Epoch / Timestamp to (and from) human readable date converter
 
 ## Features
 
+Common:
+- Pure javascript, fast, easy
 - No data is send to server. Parsing/formatting/validation is in browser, client-side. Safety first! ;)
-- Very simple. No fancy menus, multiple options and so on. Just paste and check results.
+- Very simple. No fancy menus, multiple options and so on. Just click/paste and check results.
 - Very light, no heavy js libraries (jQuery...) or css frameworks (Bootstrap...). Clean HTML, CSS and pure JavaScript.
+
+json:
 - **JSON can be pasted in multiple lines** (good for copy/paste, ie. from logs opened in nano).
 - Optional one-click result word wrap
 - Optional one-click result selecting (for copy/paste)
+
+Timestamp:
+- Local time and GMT supported
+
+UUID v4:
+- Just click a button or refresh page to generate a new UUID v4
+- Easy way to copy to clipboard
 
 Non minified Skeleton css classes can be found [here][link-jkskeletoncss] 
 

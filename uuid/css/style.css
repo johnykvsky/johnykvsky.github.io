@@ -3,13 +3,7 @@ body {padding-top: 10px;}
     body {min-width: 350px;}
 }
 
-input {display: inline-block!important;}
-
 .row {text-align:center}
-
-.input-date {width: 70px!important;}
-.input-human-date {width: 200px!important;}
-.input-timestamp {width: 140px!important;}
 
 .button:hover,button:hover,.button:focus,button:focus {
   color: #333;

@@ -1,40 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Yet another online JSON parser, formatter and validator</title> 
+    <title>Online Json parser/linter, Epoch/Timestamp Converter, UUIDv4 generator</title> 
     <meta charset="utf-8">
-    <link rel="icon" type="image/x-icon" href="img/favicon.png">
+    <link rel="icon" type="image/x-icon" href="./img/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Analyze your JSON string as you type with an online Javascript parser, featuring tree view and syntax highlighting.">
+    <meta name="description" content="Online Epoch/Timestamp converter to and from DateTime string with UUID v4 generator">
     <meta name="author" content="Johny Kvsky">
-    <meta name="keywords" content="JSON,syntax highlighting,validator,linter,json parser,json formatter,json validator,tree view,beautifier,pretty,parser,json,online,tool,free">
-    <link rel="stylesheet" href="css/normalize.min.css">
-    <link rel="stylesheet" href="css/skeleton.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <meta name="keywords" content="JavaScript, js, epoch, timestamp, convert, uuid, uuidv4, generator, online">
+    <link rel="stylesheet" href="./css/normalize.min.css">
+    <link rel="stylesheet" href="./css/skeleton.min.css">
+    <link rel="stylesheet" href="./css/style.css ">
 </head> 
 <body>
     <div class="container-fluid">
-    <div class="row">
-      <div class="sixteen columns">
-        <p id="result"></p>
-      </div>
-    </div>
-      <div class="row">
-        <div class="four columns">
-          <span class="help-text">paste json here</span>
-          <textarea id="source" placeholder=" Enter json string here...">{"null":null,"boolean":[true,false],"number":[0,1.5,2e4,-1234567890],"strings":{"firstname":"Jane","lastname":"Gray","hobbies":["X-Ray","Flying",{"teams":["X-Men","Mutants"]}],"address":"unknown"}}</textarea> 
-          <button class="btn btn-sm btn-secondary" id="wordwrap">Results word wrap on/off</button>
+        <div class="row">
+            <div class="sixteen columns">
+                <a href="./uuid/index.html"><h3>UUID v4 generator</h3></a>
+                <p>Online UUID v4 generator, using crypto library. Want an UUID v4? Just press a button, how many times you want.</p>
+            </div>
+            <div class="sixteen columns">
+                <a href="./timestamp/index.html"><h3>Epoch / Timestamp converter</h3></a>
+                <p>Fast and easy online converter from Timestamp to human readable date (and back) in one click.</p>
+            </div>
+            <div class="sixteen columns">
+                <a href="./json/index.html"><h3>JSON parser/linter/formatter</h3></a>
+                <p>Easy to use, fast online JSON parser/liner/formatter.</p>
+            </div>
         </div>
-        <div class="twelve columns">
-          <span class="help-text" id="select_results"><a href="#">select results</a></span>
-          <pre id="output"></pre>
-        </div>
-      </div>
-      <br />
-      <p class="footer">by <a href="https://github.com/johnykvsky/johnykvsky.github.io">Johny Kvsky</a></p>
+        <br />
+        <p class="footer">by <a href="https://github.com/johnykvsky/johnykvsky.github.io">Johny Kvsky</a></p>
     </div>
-    <script src="js/jsonlint.min.js"></script>
-    <script src="js/scripts.js"></script>
-    <script>parseJson();</script>
 </body> 
 </html> 

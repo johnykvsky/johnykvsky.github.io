@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Online Epoch/Timestamp Converter, UUIDv4 generator</title> 
+    <meta charset="utf-8">
+    <link rel="icon" type="image/x-icon" href="./../img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Online Epoch/Timestamp converter to and from DateTime string with UUID v4 generator">
+    <meta name="author" content="Johny Kvsky">
+    <meta name="keywords" content="JavaScript, js, epoch, timestamp, convert, uuid, uuidv4, generator, online">
+    <link rel="stylesheet" href="./../css/normalize.min.css">
+    <link rel="stylesheet" href="./../css/skeleton.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head> 
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="sixteen columns">
+                <h3>Epoch / Timestamp converter</h3>
+                <p>
+                    Pure JavaScript version. Convert Epoch/Timestamp to human readable date or convert DateTime to Timestamp / Epoch.
+                    <br/>
+                    Only local time / GMT timezone support.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <p>
+                    <input type="text" name="timestamp" id="from_timestamp_value" class="input-timestamp"> <button id="from_timestamp">Timestamp to human date</button>
+                    <br/>
+                    <strong>Local time:</strong> <span id="from_timestamp_result"></span>
+                    <br/>
+                    <strong>GMT time:</strong> <span id="from_timestamp_result_utc"></span>
+                </p>
+            <p>
+                <input type="text" name="human_date" id="human_date" class="input-human-date"> <button id="to_timestamp">Human date to timestamp</button> 
+                <br/>
+                <span class="help-text">Input format: RFC 2822, D-M-Y, M/D/Y, Y-M-D, etc.</span>
+                <br/>
+                <strong>Timestamp:</strong> <span id="to_timestamp_result"></span>
+            </p>
+            </div>
+        </div>
+        <br />
+        <p class="footer">by <a href="https://github.com/johnykvsky/johnykvsky.github.io">Johny Kvsky</a></p>
+    </div>
+<script type="text/javascript" src="./js/script.js"></script>
+</body> 
+</html> 
