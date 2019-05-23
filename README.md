@@ -1,8 +1,8 @@
-# Various DevTool
+# Various DevTools
 
-### Online JSON parser, formatter, validator
-### Online Javascript UUID v4 generator
-### Online Javascript Epoch / Timestamp converter
+#### Online JSON parser, formatter, validator
+#### Online Javascript UUID v4 generator
+#### Online Javascript Epoch / Timestamp converter
 
 Yet, another online JSON parser, formatter and validator. Pure Javascript. Quite simple and straightforward: type or paste JSON on the left, see user friendly version on the righ, check any errors at the top.
 Pure Javascript UUID v4 generator
@@ -20,6 +20,7 @@ JSON Parser / Litner / Formatter:
 - **JSON can be pasted in multiple lines** (good for copy/paste, ie. from logs opened in nano).
 - Optional one-click result word wrap
 - Optional one-click result selecting (for copy/paste)
+- Optional one-click to remove all non ASCII characters from input (witch may cause linter to fail at json parse)
 
 Timestamp:
 - Local time and GMT supported
