@@ -23,15 +23,24 @@ function syntaxHighlight(json) {
   });
 }
 
+//remove all non ASCII characters except linefeed and carriage return
+function removeAllNonAsciiCharacters() {
+  var input = document.getElementById("source").value;
+  input = input.replace(/[^\x0A\x0D\x20-\x7E]*/g, '');
+  document.getElementById("source").value = input;
+}
+
 function parseJson() {
   try {
     var input = document.getElementById("source").value;
+    input = input.toString();
     if (input == '') {
       document.getElementById("result").innerHTML = '';
       document.getElementById("result").className = "";
       document.getElementById("output").innerHTML = '';
       return;
     }
+    
     //remove new lines
     input = input.replace(/(?:\r\n|\r|\n)/g, '');
     var result = jsonlint.parse(input);
@@ -60,6 +69,12 @@ function selectElementText(e){
 document.getElementById("wordwrap").addEventListener("click",function(e){
   document.getElementById("output").classList.toggle("wordwrap");
   document.getElementById("wordwrap").classList.toggle("button-primary");
+},false);
+
+//hook for remove non ASCII characters from input
+document.getElementById("removenonascii").addEventListener("click",function(e){
+  removeAllNonAsciiCharacters();
+  parseJson();
 },false);
 
 //hook for parse "on type"
