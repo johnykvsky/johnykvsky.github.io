@@ -65,15 +65,21 @@ function selectElementText(e){
     selection.addRange(range) // add range to Selection object to select it
 }
 
+function toggleClass(element, classname){
+  document.getElementById(element).classList.toggle(classname);
+}
+
 //hook for button color and wordwrap
 document.getElementById("wordwrap").addEventListener("click",function(e){
-  document.getElementById("output").classList.toggle("wordwrap");
-  document.getElementById("wordwrap").classList.toggle("button-primary");
+  toggleClass("output", "wordwrap");
+  toggleClass("wordwrap", "button-primary");
 },false);
 
 //hook for remove non ASCII characters from input
 document.getElementById("removenonascii").addEventListener("click",function(e){
   removeAllNonAsciiCharacters();
+  toggleClass("removenonascii", "button-primary");
+  setTimeout(toggleClass, 100, "removenonascii", "button-primary");
   parseJson();
 },false);
 
