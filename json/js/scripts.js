@@ -71,8 +71,7 @@ function toggleClass(element, classname){
 
 function removeSpaces() {
   var input = document.getElementById("source").value;
-  //input = input.replace(/[^\x0A\x0D\x20-\x7E]*/g, '');
-
+  input = input.replace(/(?:\r\n|\r|\n)/g, '');
   input = input.replace(/([^"]+)|("[^"]+")/g, function($0, $1, $2) {
             if ($1) {
                 return $1.replace(/\s/g, '');
