@@ -69,18 +69,24 @@ function toggleClass(element, classname){
   document.getElementById(element).classList.toggle(classname);
 }
 
+function removeSpaces() {
+  var input = document.getElementById("source").value;
+  //input = input.replace(/[^\x0A\x0D\x20-\x7E]*/g, '');
+
+  input = input.replace(/([^"]+)|("[^"]+")/g, function($0, $1, $2) {
+            if ($1) {
+                return $1.replace(/\s/g, '');
+            } else {
+                return $2; 
+            } 
+          });
+    document.getElementById("source").value = input;
+}
+
 //hook for button color and wordwrap
 document.getElementById("wordwrap").addEventListener("click",function(e){
   toggleClass("output", "wordwrap");
   toggleClass("wordwrap", "button-primary");
-},false);
-
-//hook for remove non ASCII characters from input
-document.getElementById("removenonascii").addEventListener("click",function(e){
-  removeAllNonAsciiCharacters();
-  toggleClass("removenonascii", "button-primary");
-  setTimeout(toggleClass, 100, "removenonascii", "button-primary");
-  parseJson();
 },false);
 
 //hook for parse "on type"
@@ -93,3 +99,13 @@ document.getElementById("select_results").addEventListener("click",function(e){
   element = document.getElementById("output");
   selectElementText(element)
 },false);  
+
+//hook for remove non ASCII characters from input with all spaces not in double quotes
+document.getElementById("minifyandclean").addEventListener("click",function(e){
+  removeAllNonAsciiCharacters();
+  removeSpaces();
+  toggleClass("minifyandclean", "button-primary");
+  setTimeout(toggleClass, 100, "minifyandclean", "button-primary");
+  parseJson();
+},false);
+
