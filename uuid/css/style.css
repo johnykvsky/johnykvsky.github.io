@@ -27,3 +27,8 @@ body {padding-top: 10px;}
 .help-text {font-size: 12px;color:#6a737d;}
 
 #uuid_result  {font-size:24px;}
+
+input {display: inline-block!important;}
+.input-uuid {width: 300px!important;margin-bottom: 0px!important;}
+#validate_result {display:block!important;}
+#validate_uuid {margin-bottom: 0px!important;}

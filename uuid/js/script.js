@@ -53,3 +53,18 @@ document.getElementById("uuid_generator").addEventListener("click",function(e){
 
 //initial uuid for page load
 document.getElementById("uuid_result").innerHTML = makeUUID();
+
+function isUuid(str) {
+    var regexUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    return regexUuid.test(str);
+}
+
+//validate uuid
+document.getElementById("validate_uuid").addEventListener("click",function(e){
+    uuid = document.getElementById("uuid").value;
+    if (isUuid(uuid) === true) {
+        document.getElementById("validate_result").innerHTML = 'Valid';      
+        return;
+    }
+    document.getElementById("validate_result").innerHTML = 'Invalid UUID';
+},false); 
