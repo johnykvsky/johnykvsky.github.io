@@ -82,6 +82,13 @@ function removeSpaces() {
     document.getElementById("source").value = input;
 }
 
+function removeAdditionalSlashes() {
+  var input = document.getElementById("source").value;
+  input = input.replace(/\\/g, "");
+  document.getElementById("source").value = input;
+}
+
+
 //hook for button color and wordwrap
 document.getElementById("wordwrap").addEventListener("click",function(e){
   toggleClass("output", "wordwrap");
@@ -101,6 +108,7 @@ document.getElementById("select_results").addEventListener("click",function(e){
 
 //hook for remove non ASCII characters from input with all spaces not in double quotes
 document.getElementById("minifyandclean").addEventListener("click",function(e){
+  removeAdditionalSlashes();
   removeAllNonAsciiCharacters();
   removeSpaces();
   toggleClass("minifyandclean", "button-primary");
