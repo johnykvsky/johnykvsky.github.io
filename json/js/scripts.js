@@ -71,14 +71,15 @@ function toggleClass(element, classname){
 
 function removeSpaces() {
   var input = document.getElementById("source").value;
+  input = JSON.stringify(JSON.parse(input));/./replace(/[\/\(\)\']/g, "\\$&");
   input = input.replace(/(?:\r\n|\r|\n)/g, '');
-  input = input.replace(/([^"]+)|("[^"]+")/g, function($0, $1, $2) {
-            if ($1) {
-                return $1.replace(/\s/g, '');
-            } else {
-                return $2; 
-            } 
-          });
+  // input = input.replace(/([^"]+)|("[^"]+")/g, function($0, $1, $2) {
+  //           if ($1) {
+  //               return $1.replace(/\s/g, '');
+  //           } else {
+  //               return $2; 
+  //           } 
+  //         });
     document.getElementById("source").value = input;
 }
 
