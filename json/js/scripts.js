@@ -71,24 +71,10 @@ function toggleClass(element, classname){
 
 function removeSpaces() {
   var input = document.getElementById("source").value;
-  input = JSON.stringify(JSON.parse(input));/./replace(/[\/\(\)\']/g, "\\$&");
+  input = JSON.stringify(JSON.parse(input));//.replace(/[\/\(\)\']/g, "\\$&");
   input = input.replace(/(?:\r\n|\r|\n)/g, '');
-  // input = input.replace(/([^"]+)|("[^"]+")/g, function($0, $1, $2) {
-  //           if ($1) {
-  //               return $1.replace(/\s/g, '');
-  //           } else {
-  //               return $2; 
-  //           } 
-  //         });
-    document.getElementById("source").value = input;
-}
-
-function removeAdditionalSlashes() {
-  var input = document.getElementById("source").value;
-  input = input.replace(/\\/g, "");
   document.getElementById("source").value = input;
 }
-
 
 //hook for button color and wordwrap
 document.getElementById("wordwrap").addEventListener("click",function(e){
@@ -109,7 +95,6 @@ document.getElementById("select_results").addEventListener("click",function(e){
 
 //hook for remove non ASCII characters from input with all spaces not in double quotes
 document.getElementById("minifyandclean").addEventListener("click",function(e){
-  removeAdditionalSlashes();
   removeAllNonAsciiCharacters();
   removeSpaces();
   toggleClass("minifyandclean", "button-primary");
@@ -117,3 +102,20 @@ document.getElementById("minifyandclean").addEventListener("click",function(e){
   parseJson();
 },false);
 
+// top button
+let mybutton = document.getElementById("top_button");
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+function goUp() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
