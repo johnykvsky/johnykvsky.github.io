@@ -22,6 +22,10 @@ JSON Parser / Litner / Formatter:
 - Optional one-click result selecting (for copy/paste)
 - Optional one-click to remove all non ASCII characters from input (witch may cause linter to fail at json parse)
 
+JSON Compare
+- Simple compare of 2 JSON strings, with use of parser/linter/formatter
+- Option to switch output windows to easily spot the differences
+
 Timestamp:
 - Local time and GMT supported
 

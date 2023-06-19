@@ -1,0 +1,69 @@
+body {padding-top: 10px;}
+@media only screen and (max-width: 768px){
+    body {min-width: 350px;}
+}
+.row {margin-bottom:0}
+
+pre {
+    border: 1px solid #ccc; 
+    padding: 5px; 
+    background-color: #FFF;
+    font-family:monospace;
+    font-size:100%;
+    line-height: 152%;
+    font-size:12px;
+    line-height:17px;
+    min-height:500px;
+    margin-top: 0;
+}
+
+p {margin-bottom:0;margin-top:0;}
+textarea { font-family: monospace,"Helvetica Neue",Helvetica,Arial;width: 100%;font-size:14px;background-color:#fff;border: 1px solid #ccc;color:#888; }
+textarea:focus, select:focus {color:#000;}
+
+.result { padding-top: 0; margin-bottom: 0;}
+.source {min-width: 100%;min-height:150px;resize: vertical;}
+.pass { color: #393; }
+.fail { color: #933; }
+.string { color: #4e9a06; }
+.number { color: #ad7fa8; }
+.boolean { color: #c4a000; }
+.null { color: #babdb6; }
+.key { color: #204a87; }
+.cbrackets { color: #729FCF; }
+.sbrackets { color: #A40000; }
+.footer {font-size:10px;}
+.footer a {text-decoration: none;}
+.help-text a {text-decoration: none;}
+.help-text {font-size: 12px;color:#6a737d;}
+
+.button:hover,button:hover,.button:focus,button:focus {
+  color: #333;
+  border-color: #888;
+  outline: 0; 
+}
+.button.button-primary, button.button-primary {
+  color: #FFF;
+  background-color: #33C3F0;
+  border-color: #33C3F0;
+}
+.button.button-primary:hover,button.button-primary:hover,.button.button-primary:focus,button.button-primary:focus {
+  color: #FFF;
+  background-color: #1EAEDB;
+  border-color: #1EAEDB;
+}
+
+#top_button {
+  display: none;
+  position: fixed;
+  bottom: 10px;
+  left: 30px;
+  z-index: 99;
+  font-size: 12px;
+  border: none;
+  outline: none;
+  color: #1EAEDB;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}

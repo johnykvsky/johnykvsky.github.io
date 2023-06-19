@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>JSON compare made simple, with stroboscopic difference checker ;) Fast, easy to use, pure javascript version.</title> 
+    <meta charset="utf-8">
+    <link rel="icon" type="image/x-icon" href="./../img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Compare two JSON strings, side by side, with syntax highlighting.">
+    <meta name="author" content="Johny Kvsky">
+    <meta name="keywords" content="JSON,compare,diff,side by side,syntax highlighting,validator,linter,json parser,json formatter,json validator,tree view,beautifier,pretty,parser,json,online,tool,free">
+    <link rel="stylesheet" href="./../css/normalize.min.css">
+    <link rel="stylesheet" href="./../css/skeleton.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head> 
+<body>
+    <div class="container-fluid">
+      <span onclick="goUp()" id="top_button" title="Go to top">go up</span>
+      <div class="row">
+            <div class="sixteen columns help-text">
+                <a href="https://johnykvsky.github.io">Home</a>
+            </div>
+      </div>
+      <div class="row">
+        <div class="eight columns">
+          <p id="result" class="result"></p>
+          <span class="help-text">paste json1 here</span>
+          <textarea id="source" class="source" placeholder=" Enter json string here...">{"null":null,"boolean":[true,false],"number":[0,1.5,2e4,-1234567890],"strings":{"firstname":"Jane","lastname":"Gray","hobbies":["X-Ray","Flying",{"teams":["X-Men","Mutants"]}],"address":"unknown"}}</textarea> 
+        </div>
+        <div class="eight columns">
+          <p id="result_second" class="result"></p>
+          <span class="help-text">paste json2 here</span>
+          <textarea id="source_second" class="source" placeholder=" Enter json string here...">{"null":null,"boolean":[true,false],"number":[0,1.5,2e4,-1234567890],"strings":{"firstname":"Deborah","lastname":"Gray","hobbies":["X-Ray","Flying",{"teams":["Mutants"]}],"address":"classified"}}</textarea> 
+        </div>
+      </div>
+    <div class="row">
+      <div class="sixteen columns">
+        <button class="btn btn-sm btn-secondary" id="switch">switch</button>
+      </div>
+    </div>
+    <div class="row">
+        <div class="eight columns">
+          <pre id="output"></pre>
+        </div>
+        <div class="eight columns">
+          <pre id="output_second"></pre>
+        </div>
+    </div>
+      <br />
+      <p class="footer">by <a href="https://github.com/johnykvsky/johnykvsky.github.io">Johny Kvsky</a></p>
+    </div>
+    <script src="./js/jsonlint.min.js"></script>
+    <script src="./js/scripts.js"></script>
+    <script>parseJson();parseJson("_second");</script>
+</body> 
+</html> 
