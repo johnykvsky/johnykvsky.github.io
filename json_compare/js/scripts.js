@@ -79,6 +79,16 @@ document.getElementById("switch").addEventListener("click",function(e){
   toggleClass("switch", "button-primary");
 },false);
 
+//clear source
+document.getElementById("clear_source").addEventListener("click",function(e){
+  document.getElementById("source").innerHTML = '';
+},false);
+
+//clear source
+document.getElementById("clear_source_second").addEventListener("click",function(e){
+  document.getElementById("source_second").innerHTML = '';
+},false);
+
 //hook for parse "on type"
 document.getElementById("source").addEventListener('input', function (evt) {
   parseJson();

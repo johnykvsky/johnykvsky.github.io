@@ -45,6 +45,8 @@ textarea:focus, select:focus {color:#000;}
 .help-text a {text-decoration: none;}
 .help-text {font-size: 12px;color:#6a737d;}
 
+.clear-source {color: #ad7fa8;cursor: pointer;}
+
 .button:hover,button:hover,.button:focus,button:focus {
   color: #333;
   border-color: #888;
