@@ -95,7 +95,7 @@ document.getElementById("select_results").addEventListener("click",function(e){
 
 //clear source
 document.getElementById("clear_source").addEventListener("click",function(e){
-  document.getElementById("source").innerHTML = '';
+  document.getElementById("source").value = '';
 },false);
 
 //hook for remove non ASCII characters from input with all spaces not in double quotes

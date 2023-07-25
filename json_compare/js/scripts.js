@@ -81,12 +81,12 @@ document.getElementById("switch").addEventListener("click",function(e){
 
 //clear source
 document.getElementById("clear_source").addEventListener("click",function(e){
-  document.getElementById("source").innerHTML = '';
+  document.getElementById("source").value = '';
 },false);
 
 //clear source
 document.getElementById("clear_source_second").addEventListener("click",function(e){
-  document.getElementById("source_second").innerHTML = '';
+  document.getElementById("source_second").value = '';
 },false);
 
 //hook for parse "on type"
