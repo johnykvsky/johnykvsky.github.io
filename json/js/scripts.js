@@ -19,7 +19,7 @@ function syntaxHighlight(json) {
       } else if (/\[|\]/.test(match)) {
           cls = 'sbrackets';
       }
-      return '<span class="' + cls + '">' + match + '</span>';
+      return '<span class="json-parse ' + cls + '">' + match + '</span>';
   });
 }
 
@@ -69,6 +69,31 @@ function toggleClass(element, classname){
   document.getElementById(element).classList.toggle(classname);
 }
 
+function toggleJsonDarkMode(item, classname){
+    if (item.classList.contains('dark-'+classname)) {
+      item.classList.remove('dark-'+classname)
+      item.classList.add(classname);
+    } else if (item.classList.contains(classname)){
+      item.classList.remove('dark-'+classname)
+      item.classList.add('dark-'+classname);
+    }
+}
+
+function toggleClassForJson(){
+    var json_classes = document.getElementsByClassName('json-parse');
+    for (var i = 0; i < json_classes.length; ++i) {
+      var item = json_classes[i];
+
+      toggleJsonDarkMode(item, 'string');
+      toggleJsonDarkMode(item, 'number');
+      toggleJsonDarkMode(item, 'boolean');
+      toggleJsonDarkMode(item, 'null');
+      toggleJsonDarkMode(item, 'key');
+      toggleJsonDarkMode(item, 'cbrackets');
+      toggleJsonDarkMode(item, 'sbrackets');
+  }
+}
+
 function removeSpaces() {
   var input = document.getElementById("source").value;
   input = JSON.stringify(JSON.parse(input));//.replace(/[\/\(\)\']/g, "\\$&");
@@ -80,6 +105,15 @@ function removeSpaces() {
 document.getElementById("wordwrap").addEventListener("click",function(e){
   toggleClass("output", "wordwrap");
   toggleClass("wordwrap", "button-primary");
+},false);
+
+//dark mode
+document.getElementById("switchtheme").addEventListener("click",function(e){
+  toggleClass("body", "dark-background");
+  toggleClass("source", "dark-textarea");
+  toggleClass("output", "dark-output");
+  toggleClassForJson();
+  toggleClass("switchtheme", "button-primary");
 },false);
 
 //hook for parse "on type"

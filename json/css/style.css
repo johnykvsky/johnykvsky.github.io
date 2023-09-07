@@ -1,11 +1,10 @@
-body {padding-top: 10px;}
+body {padding-top: 10px;background-color: #FFF;}
 @media only screen and (max-width: 768px){
     body {min-width: 350px;}
 }
 .row {margin-bottom:0}
 
 pre {
-    border: 1px solid #ccc; 
     padding: 5px; 
     background-color: #FFF;
     font-family:monospace;
@@ -18,8 +17,9 @@ pre {
 }
 
 p {margin-bottom:0;margin-top:0;}
-textarea { font-family: monospace,"Helvetica Neue",Helvetica,Arial;width: 100%;font-size:14px;background-color:#fff;border: 1px solid #ccc;color:#888; }
-textarea:focus, select:focus {color:#000;}
+.textarea { font-family: monospace,"Helvetica Neue",Helvetica,Arial;width: 100%;font-size:14px;color:#888;background-color:#fff;border: 1px solid #ccc;}
+.textarea:focus, .light-select:focus {color:#000;}
+.textarea:hover {color:#444;}
 
 .wordwrap {
     white-space: pre-wrap;       /* Since CSS 2.1 */
@@ -45,7 +45,28 @@ textarea:focus, select:focus {color:#000;}
 .help-text a {text-decoration: none;}
 .help-text {font-size: 12px;color:#6a737d;}
 
+#output {background-color: #FFF;border: 1px solid #ccc;}
+.dark-output {background-color: #1E1E1E !important;border: 1px solid #494E54 !important;}
+
+.dark-background {background-color: #1E1E1E;}
+
+.dark-textarea:focus, .dark-select:focus {color:#5C7E97;}
+.dark-textarea:hover {color:#5C7E97;}
+.dark-textarea {background-color:#1E1E1E;border: 1px solid #494E54;}
+
+.dark-string { color: #BC856F; }
+.dark-number { color: #A1B796; }
+.dark-boolean { color: #569CD6; }
+.dark-null { color: #5192C8; }
+.dark-key { color: #9CDCFE; }
+.dark-cbrackets { color: #636363; }
+.dark-sbrackets { color: #949494; }
+
 .clear-source {color: #ad7fa8;cursor: pointer;}
+
+.button.btn-secondary, button.btn-secondary {
+  border-color: #494E54;
+}
 
 .button:hover,button:hover,.button:focus,button:focus {
   color: #333;

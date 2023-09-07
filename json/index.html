@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./../css/skeleton.min.css">
     <link rel="stylesheet" href="./css/style.css">
 </head> 
-<body>
+<body class="background" id="body">
     <div class="container-fluid">
     <span onclick="goUp()" id="top_button" title="Go to top">go up</span>
       <div class="row">
@@ -28,14 +28,16 @@
       <div class="row">
         <div class="four columns">
           <span class="help-text">paste json here</span> - <span id="clear_source" class="help-text clear-source">clear</span>
-          <textarea id="source" placeholder=" Enter json string here...">{"null":null,"boolean":[true,false],"number":[0,1.5,2e4,-1234567890],"strings":{"firstname":"Jane","lastname":"Gray","hobbies":["X-Ray","Flying",{"teams":["X-Men","Mutants"]}],"address":"unknown"}}</textarea> 
+          <textarea id="source" class="textarea" placeholder=" Enter json string here...">{"null":null,"boolean":[true,false],"number":[0,1.5,2e4,-1234567890],"strings":{"firstname":"Jane","lastname":"Gray","hobbies":["X-Ray","Flying",{"teams":["X-Men","Mutants"]}],"address":"unknown"}}</textarea> 
           <button class="btn btn-sm btn-secondary" id="wordwrap">Results word wrap on/off</button>
           <br />
           <button class="btn btn-sm btn-secondary" id="minifyandclean">Minify and clean source</button>
+          <br />
+          <button class="btn btn-sm btn-secondary" id="switchtheme">Dark Theme</button>
         </div>
         <div class="twelve columns">
           <span class="help-text" id="select_results"><a href="#">select results</a></span>
-          <pre id="output"></pre>
+          <pre id="output" class="output"></pre>
         </div>
       </div>
       <br />
