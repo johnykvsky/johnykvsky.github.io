@@ -1,0 +1,18 @@
+body {padding-top: 10px;}
+@media only screen and (max-width: 768px){
+    body {min-width: 350px;}
+}
+
+.row {text-align:center}
+.sixteen {text-align:center}
+
+select {
+    display: block;
+    margin: 0 auto;
+}
+
+.footer {font-size:10px;}
+.footer a {text-decoration: none;}
+.help-text a {text-decoration: none;}
+.help-text {font-size: 12px;color:#6a737d;}
+

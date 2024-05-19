@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ICM Meteo</title> 
+    <meta charset="utf-8">
+    <link rel="icon" type="image/x-icon" href="./img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Meteo ICM weather view for selected cities">
+    <meta name="author" content="Johny Kvsky">
+    <meta name="keywords" content="JavaScript, js, icm, meteo, weather, forecast">
+    <link rel="stylesheet" href="./css/normalize.min.css">
+    <link rel="stylesheet" href="./css/skeleton.min.css">
+    <link rel="stylesheet" href="./css/style.css ">
+</head> 
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="sixteen columns">
+                Godzina meteogramu:
+                <select id="hours">
+                    <option value="00" selected>00</option>
+                    <option value="06">06</option>
+                    <option value="12">12</option>
+                    <option value="18">18</option>
+                </select>
+            </div>
+            <br />
+            <br />
+            <button id="czestochowa">Czestochowa</button>
+            <button id="kule">Kule</button>
+            <button id="ustron">Ustroń</button>
+            <br />
+            <button id="galezow">Galezow</button>
+            <button id="ustka">Ustka</button>
+            <button id="poddabie">Poddąbie</button>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <p><img id="meteogram" src="" style="width: 540px;height: 660px;" /></p>
+            </div>
+        </div>
+        <br />
+        <p class="footer"></p>
+    </div>
+    <script src="./js/scripts.js"></script>
+    <script>loadMeteo();</script>
+</body> 
+</html> 
