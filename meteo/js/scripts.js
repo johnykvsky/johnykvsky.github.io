@@ -9,12 +9,27 @@ var cities = {
 
 function loadMeteo(cityValue = "czestochowa") {
   try {
-    var today = new Date().toISOString().slice(0,10);
+    var hourValue = '00';
+    var currentDate = new Date();
+    var today = currentDate.toISOString().slice(0,10);
+    var hours = currentDate.getHours();;
+
+    if (hours <= 7) {
+       currentDate.setDate(currentDate.getDate() - 1);
+       today = currentDate.toISOString().slice(0,10);      
+       hourValue = '18';
+    } else if (hours >= 19) {
+      hourValue = '12';
+    } else if (hours >= 13) {
+      hourValue = '06';
+    } else if (hours >= 7) {
+      hourValue = '00';
+    }
+
     var datestring = today.replace(/-/g, "");
-    var hourSelect = document.getElementById("hours");
-    var hourValue = hourSelect.value;
     var cityRow = cities[cityValue].row;
     var cityCol = cities[cityValue].col;
+    document.getElementById("meteoHour").textContent = today + " " + hourValue + ":00";
     document.getElementById("meteogram").src = "https://www.meteo.pl/um/metco/mgram_pict.php?ntype=0u&row="+cityRow+"&col="+cityCol+"&lang=pl&fdate="+datestring+""+hourValue;
   } catch(e) {
 
