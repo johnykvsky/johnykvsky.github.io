@@ -4,7 +4,8 @@ var cities = {
   poddabie: {row: 339, col: 185},
   czestochowa: {row: 445, col: 217},
   ustron: {row: 475, col: 212},
-  kule: {row: 437, col: 213}
+  kule: {row: 437, col: 213},
+  krakow: {row: 466, col: 232}
 };
 
 function loadMeteo(cityValue = "czestochowa") {
@@ -58,4 +59,8 @@ document.getElementById("ustka").addEventListener("click",function(e){
 
 document.getElementById("poddabie").addEventListener("click",function(e){
   loadMeteo("poddabie");
+},false);
+
+document.getElementById("krakow").addEventListener("click",function(e){
+  loadMeteo("krakow");
 },false);
