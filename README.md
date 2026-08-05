@@ -1,68 +1,55 @@
-# Various DevTools
+# Johny Kvsky DevTools
 
-#### Online JSON parser, formatter, validator
-#### Online Javascript UUID v4 generator
-#### Online Javascript Epoch / Timestamp converter
+Small browser-based developer tools for common data formats and identifiers.
 
-Yet, another online JSON parser, formatter and validator. Pure Javascript. Quite simple and straightforward: type or paste JSON on the left, see user friendly version on the righ, check any errors at the top.
-Pure Javascript UUID v4 generator
-Pure Javascript Epoch / Timestamp to (and from) human readable date converter
+Demo: [https://johnykvsky.github.io][link-demo]
 
-## Features
+## Tools
 
-Common:
-- Pure javascript, fast, easy
-- No data is send to server. Parsing/formatting/validation is in browser, client-side. Safety first! ;)
-- Very simple. No fancy menus, multiple options and so on. Just click/paste and check results.
-- Very light, no heavy js libraries (jQuery...) or css frameworks (Bootstrap...). Clean HTML, CSS and pure JavaScript.
+- **JSON Formatter**: validate, format, minify, clean non-ASCII characters, toggle output word wrap, and copy formatted output.
+- **JSON Compare**: validate and compare two JSON documents with formatted output, highlighted differences, and a change list.
+- **Base64 Encoder / Decoder**: encode and decode Base64 strings locally, including UTF-8 text.
+- **JWT Encoder / Decoder**: decode JWT header and payload, inspect registered claims and time status, verify signatures, and encode/sign tokens.
+- **UUID Generator**: generate secure UUID v4 and UUID v7 values, validate UUID v1-8 strings, and inspect timestamp details for time-based UUIDs.
+- **Timestamp Converter**: convert Unix timestamps to dates and dates to Unix timestamps, including timezone-aware date inputs.
 
-JSON Parser / Litner / Formatter:
-- **JSON can be pasted in multiple lines** (good for copy/paste, ie. from logs opened in nano).
-- Optional one-click result word wrap
-- Optional one-click result selecting (for copy/paste)
-- Optional one-click to remove all non ASCII characters from input (witch may cause linter to fail at json parse)
+## Design Goals
 
-JSON Compare
-- Simple compare of 2 JSON strings, with use of parser/linter/formatter
-- Option to switch output windows to easily spot the differences
+- Pure vanilla JavaScript.
+- Browser-only processing; input data is not sent to a server.
+- Lightweight CSS with responsive layouts for desktop and mobile.
+- No jQuery, Bootstrap, or heavy frontend framework.
+- Shared UI toolkit for common layout, status, copy, and dark/light theme behavior.
 
-Timestamp:
-- Local time and GMT supported
+## JWT Support
 
-UUID v4:
-- Just click a button or refresh page to generate a new UUID v4
-- Easy way to copy to clipboard
-- Secure and realiable, using Crypto.getRandomValues API instead of Math.random (witch cause collisions)
+JWT decoding works for standard three-part JWT tokens.
 
-Non minified Skeleton css classes can be found [here][link-jkskeletoncss] 
+Signature verification supports:
 
-## Demo
+- HMAC secrets: `HS256`, `HS384`, `HS512`
+- PEM public keys: `RS256`, `RS384`, `RS512`, `PS256`, `PS384`, `PS512`, `ES256`, `ES384`, `ES512`
 
-Here you go: [https://johnykvsky.github.io][link-demo]
+Token encoding/signing supports:
 
-## Credits
+- Unsigned tokens: `none`
+- HMAC secrets: `HS256`, `HS384`, `HS512`
+- PEM PKCS#8 private keys: `RS256`, `RS384`, `RS512`, `PS256`, `PS384`, `PS512`, `ES256`, `ES384`, `ES512`
 
-- [johnykvsky][link-author]
-- [Olivier Cuenot][link-ocuenot] for excellent online json parser
-- [Zachary Carter][link-zcarter] for javascript json linter
-- [Andrew Zakordonets][link-azakordonets] for syntax highlighter
-- [Dave Gamache][link-dgamache] for Skeleton
-- [atomicpages][link-atomicpages] for Skeleton updates
-- [javascriptkit][link-javascriptkit] for selectElementText
-- [mindplay-dk][link-mindplay-dk ] for UUID implementation
+HMAC signing key length is validated before encode according to RFC 7518 minimums.
+
+## Local Checks
+
+Run the smoke checks:
+
+```sh
+node tests/smoke.js
+```
+
+The smoke test checks current tool pages, shared assets, script syntax, sample JWT decoding, UUID v7 shape, and UTF-8 Base64 behavior.
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). See [LICENSE.md](LICENSE.md).
 
-[link-author]: https://github.com/johnykvsky
-[link-ocuenot]: http://json.parser.online.fr
-[link-zcarter]: http://github.com/zaach/jsonlint
-[link-azakordonets]: http://biercoff.com/pretty-printing-of-json-in-javascript/
-[link-dgamache]: https://github.com/dhg/Skeleton
-[link-atomicpages]: http://atomicpages.github.io/skeleton-sass
-[link-javascriptkit]: http://www.javascriptkit.com/javatutors/copytoclipboard.shtml
 [link-demo]: https://johnykvsky.github.io
-[link-jkskeletoncss]: https://github.com/johnykvsky/SkeletonCss
-[link-mindplay-dk ]: https://github.com/johnykvsky/SkeletonCss
-

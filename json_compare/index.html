@@ -1,55 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>JSON compare made simple, with stroboscopic difference checker ;) Fast, easy to use, pure javascript version.</title> 
-    <meta charset="utf-8">
-    <link rel="icon" type="image/x-icon" href="./../img/favicon.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Compare two JSON strings, side by side, with syntax highlighting.">
-    <meta name="author" content="Johny Kvsky">
-    <meta name="keywords" content="JSON,compare,diff,side by side,syntax highlighting,validator,linter,json parser,json formatter,json validator,tree view,beautifier,pretty,parser,json,online,tool,free">
-    <link rel="stylesheet" href="./../css/normalize.min.css">
-    <link rel="stylesheet" href="./../css/skeleton.min.css">
-    <link rel="stylesheet" href="./css/style.css">
-</head> 
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Compare and validate JSON locally in your browser.">
+  <title>JSON Compare</title>
+  <link rel="stylesheet" href="../assets/toolkit/tool.css">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
 <body>
-    <div class="container-fluid">
-      <span onclick="goUp()" id="top_button" title="Go to top">go up</span>
-      <div class="row">
-            <div class="sixteen columns help-text">
-                <a href="https://johnykvsky.github.io">Home</a>
-            </div>
-      </div>
-      <div class="row">
-        <div class="eight columns">
-          <p id="result" class="result"></p>
-          <span class="help-text">paste json1 here</span> - <span id="clear_source" class="help-text clear-source">clear</span>
-          <textarea id="source" class="source" placeholder=" Enter json string here...">{"null":null,"boolean":[true,false],"number":[0,1.5,2e4,-1234567890],"strings":{"firstname":"Jane","lastname":"Gray","hobbies":["X-Ray","Flying",{"teams":["X-Men","Mutants"]}],"address":"unknown"}}</textarea> 
-        </div>
-        <div class="eight columns">
-          <p id="result_second" class="result"></p>
-          <span class="help-text">paste json2 here</span> - <span id="clear_source_second" class="help-text clear-source">clear</span>
-          <textarea id="source_second" class="source" placeholder=" Enter json string here...">{"null":null,"boolean":[true,false],"number":[0,1.5,2e4,-1234567890],"strings":{"firstname":"Deborah","lastname":"Gray","hobbies":["X-Ray","Flying",{"teams":["Mutants"]}],"address":"classified"}}</textarea> 
-        </div>
-      </div>
-    <div class="row">
-      <div class="sixteen columns">
-        <button class="btn btn-sm btn-secondary" id="switch">switch</button>
-      </div>
+  <header class="topbar">
+    <div>
+      <h1>JSON Compare</h1>
+      <p>Validate and compare two JSON documents locally in your browser.</p>
     </div>
-    <div class="row">
-        <div class="eight columns">
-          <pre id="output"></pre>
-        </div>
-        <div class="eight columns">
-          <pre id="output_second"></pre>
-        </div>
+    <div class="topbar-actions">
+      <a class="home-link" href="../index.html">All tools</a>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">Dark</button>
     </div>
-      <br />
-      <p class="footer">by <a href="https://github.com/johnykvsky/johnykvsky.github.io">Johny Kvsky</a></p>
-    </div>
-    <script src="./js/jsonlint.min.js"></script>
-    <script src="./js/scripts.js"></script>
-    <script>parseJson();parseJson("_second");</script>
-</body> 
-</html> 
+  </header>
+
+  <main class="app">
+    <section class="toolbar" aria-label="JSON comparison controls">
+      <button id="compareBtn" type="button">Compare</button>
+      <button id="swapBtn" type="button">Swap</button>
+    </section>
+
+    <section id="summary" class="summary neutral" aria-live="polite">
+      Paste JSON into both panels to compare.
+    </section>
+
+    <section class="editor-grid" aria-label="JSON inputs">
+      <article class="panel">
+        <div class="panel-header">
+          <h2>JSON 1</h2>
+          <button id="clearLeftBtn" class="plain-button" type="button">Clear</button>
+        </div>
+        <textarea id="leftInput" spellcheck="false" aria-label="JSON 1 input">{"null":null,"boolean":[true,false],"number":[0,1.5,2e4,-1234567890],"strings":{"firstname":"Jane","lastname":"Gray","hobbies":["X-Ray","Flying",{"teams":["X-Men","Mutants"]}],"address":"unknown"}}</textarea>
+        <p id="leftStatus" class="status neutral">Ready</p>
+      </article>
+
+      <article class="panel">
+        <div class="panel-header">
+          <h2>JSON 2</h2>
+          <button id="clearRightBtn" class="plain-button" type="button">Clear</button>
+        </div>
+        <textarea id="rightInput" spellcheck="false" aria-label="JSON 2 input">{"null":null,"boolean":[true,false],"number":[0,1.5,2e4,-1234567890],"strings":{"firstname":"Deborah","lastname":"Gray","hobbies":["X-Ray","Flying",{"teams":["Mutants"]}],"address":"classified"}}</textarea>
+        <p id="rightStatus" class="status neutral">Ready</p>
+      </article>
+    </section>
+
+    <section class="result-grid" aria-label="JSON comparison output">
+      <article class="panel">
+        <div class="panel-header">
+          <h2>JSON 1 formatted</h2>
+          <button id="copyLeftBtn" class="plain-button" type="button">Copy</button>
+        </div>
+        <pre id="leftOutput" class="json-output" aria-label="JSON 1 formatted output"></pre>
+      </article>
+
+      <article class="panel">
+        <div class="panel-header">
+          <h2>JSON 2 formatted</h2>
+          <button id="copyRightBtn" class="plain-button" type="button">Copy</button>
+        </div>
+        <pre id="rightOutput" class="json-output" aria-label="JSON 2 formatted output"></pre>
+      </article>
+    </section>
+
+    <section class="changes-panel" aria-label="Change list">
+      <div class="panel-header">
+        <h2>Changes</h2>
+        <button id="copyChangesBtn" class="plain-button" type="button">Copy</button>
+      </div>
+      <ol id="changesList" class="changes-list"></ol>
+    </section>
+  </main>
+
+  <script src="../assets/toolkit/tool.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>

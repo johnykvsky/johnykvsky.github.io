@@ -1,50 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Online UUIDv4 generator - fast and secure, pure javascript version</title> 
-    <meta charset="utf-8">
-    <link rel="icon" type="image/x-icon" href="./../img/favicon.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Online UUID v4 generator, fast, secure, easy to use, pure javascript, with crypto library">
-    <meta name="author" content="Johny Kvsky">
-    <meta name="keywords" content="JavaScript, js, uuid, uuidv4, generate, generator, online, crypto, unique">
-    <link rel="stylesheet" href="./../css/normalize.min.css">
-    <link rel="stylesheet" href="./../css/skeleton.min.css">
-    <link rel="stylesheet" href="./css/style.css">
-</head> 
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Generate secure UUID v4 / v7 values and validate UUID v1-8 strings locally in your browser.">
+  <title>UUID Generator</title>
+  <link rel="icon" type="image/x-icon" href="../img/favicon.png">
+  <link rel="stylesheet" href="../assets/toolkit/tool.css">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
 <body>
-    <div class="container-fluid">
-      <div>
-            <div class="sixteen columns help-text">
-                <a href="https://johnykvsky.github.io">Home</a>
-            </div>
-      </div>
-        <div class="row">
-            <div class="sixteen columns">
-                <h3>Online UUID v4 generator</h3>
-                <p>More about uuid <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">here</a>.</p>
-                <p>Pure JavaScript version, using crypto library. Want an UUID v4? Just press a button, how many times you want.</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="sixteen columns">
-            <p><button id="uuid_generator">Generate UUID v4</button></p>
-            <p>
-                <span id="uuid_result"></span>
-                <br>
-                <span class="help-text">
-                    <a id="copy_uuid" href="#">copy to clipboard</a>
-                </span>
-            </p>
-            <p>
-                <input type="text" name="uuid" id="uuid" class="input-uuid" /> <button id="validate_uuid">Validate UUID</button>
-                <span id="validate_result" class="help-text"><br /></span>
-            </p>
-            </div>
-        </div>
-        <br />
-        <p class="footer">by <a href="https://github.com/johnykvsky/johnykvsky.github.io">Johny Kvsky</a></p>
+  <header class="topbar">
+    <div>
+      <h1>UUID Generator</h1>
+      <p>Generate secure UUID v4 / v7 values and validate UUID v1-8 strings locally in your browser.</p>
     </div>
-<script type="text/javascript" src="./js/script.js"></script>
-</body> 
-</html> 
+    <div class="topbar-actions">
+      <a class="home-link" href="../index.html">All tools</a>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">Dark</button>
+    </div>
+  </header>
+
+  <main class="app">
+    <section class="toolbar" aria-label="UUID controls">
+      <button id="generateBtn" type="button">Generate UUID v4</button>
+      <button id="generateV7Btn" type="button">Generate UUID v7</button>
+    </section>
+
+    <section id="status" class="status neutral" aria-live="polite">
+      Generate or validate a UUID.
+    </section>
+
+    <section class="tool-grid" aria-label="UUID generator and validator">
+      <article class="panel">
+        <div class="panel-header">
+          <h2>Generated UUID</h2>
+          <button id="copyGeneratedBtn" class="plain-button" type="button">Copy</button>
+        </div>
+        <div class="uuid-output-wrap">
+          <output id="uuidResult" class="uuid-output mono"></output>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-header">
+          <h2>Validate UUID</h2>
+        </div>
+        <div class="panel-body">
+          <div class="field">
+            <label for="uuidInput">UUID</label>
+            <div class="inline-form">
+              <input id="uuidInput" class="mono" type="text" autocomplete="off" spellcheck="false">
+              <button id="validateBtn" type="button">Validate</button>
+            </div>
+          </div>
+          <p id="validationResult" class="validation-result neutral" aria-live="polite">Paste a UUID to validate.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel" aria-label="UUID time details">
+      <div class="panel-header">
+        <h2>UUID details</h2>
+      </div>
+      <dl class="value-list">
+        <div class="value-row">
+          <dt class="value-label">Version</dt>
+          <dd id="versionResult" class="value-output">-</dd>
+        </div>
+        <div class="value-row">
+          <dt class="value-label">Variant</dt>
+          <dd id="variantResult" class="value-output">-</dd>
+        </div>
+        <div class="value-row">
+          <dt class="value-label">Timestamp</dt>
+          <dd id="timestampSourceResult" class="value-output">-</dd>
+        </div>
+        <div class="value-row">
+          <dt class="value-label">Local time</dt>
+          <dd id="localTimeResult" class="value-output">-</dd>
+        </div>
+        <div class="value-row">
+          <dt class="value-label">UTC time</dt>
+          <dd id="utcTimeResult" class="value-output">-</dd>
+        </div>
+        <div class="value-row">
+          <dt class="value-label">Unix seconds</dt>
+          <dd id="unixSecondsResult" class="value-output">-</dd>
+        </div>
+        <div class="value-row">
+          <dt class="value-label">Unix milliseconds</dt>
+          <dd id="unixMillisecondsResult" class="value-output">-</dd>
+        </div>
+      </dl>
+    </section>
+  </main>
+
+  <script src="../assets/toolkit/tool.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Decode, validate, encode, and sign JWT tokens locally in your browser.">
+  <title>JWT Encoder / Decoder</title>
+  <link rel="icon" type="image/x-icon" href="../img/favicon.png">
+  <link rel="stylesheet" href="../assets/toolkit/tool.css">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>JWT Encoder / Decoder</h1>
+      <p>Decode, validate, encode, and sign JWT tokens locally in your browser.</p>
+    </div>
+    <div class="topbar-actions">
+      <a class="home-link" href="../index.html">All tools</a>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">Dark</button>
+    </div>
+  </header>
+
+  <main class="app">
+    <section class="toolbar mode-toolbar" aria-label="JWT mode">
+      <button id="decodeModeBtn" class="mode-link" type="button" aria-pressed="true">Decode token</button>
+      <button id="encodeModeBtn" class="mode-link" type="button" aria-pressed="false">Encode token</button>
+    </section>
+
+    <section id="status" class="status neutral" aria-live="polite">
+      Paste a JWT to decode.
+    </section>
+
+    <section id="decodeView" class="mode-view">
+      <section class="toolbar" aria-label="JWT decode controls">
+        <button id="decodeBtn" type="button">Decode</button>
+        <button id="verifyBtn" type="button">Verify signature</button>
+        <button id="clearBtn" type="button">Clear</button>
+      </section>
+
+      <section class="jwt-grid" aria-label="JWT input and signature verification">
+        <article class="panel">
+          <div class="panel-header">
+            <h2>Token</h2>
+            <button id="copyTokenBtn" class="plain-button" type="button">Copy</button>
+          </div>
+          <textarea id="tokenInput" class="jwt-token" spellcheck="false" aria-label="JWT token input">eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJudWxsIjpudWxsLCJib29sZWFuIjpbdHJ1ZSxmYWxzZV0sIm51bWJlciI6WzAsMS41LDIwMDAwLC0xMjM0NTY3ODkwXSwic3RyaW5ncyI6eyJmaXJzdG5hbWUiOiJKYW5lIiwibGFzdG5hbWUiOiJHcmF5IiwiaG9iYmllcyI6WyJYLVJheSIsIkZseWluZyIseyJ0ZWFtcyI6WyJYLU1lbiIsIk11dGFudHMiXX1dLCJhZGRyZXNzIjoidW5rbm93biJ9fQ.</textarea>
+        </article>
+
+        <article class="panel">
+          <div class="panel-header">
+            <h2>Signature verification</h2>
+          </div>
+          <div class="panel-body">
+            <div class="field">
+              <label for="keyInput">Secret or public key</label>
+              <textarea id="keyInput" class="key-input" spellcheck="false" aria-label="JWT verification key"></textarea>
+            </div>
+            <p id="verifyResult" class="verify-result neutral" aria-live="polite">Verification is optional.</p>
+          </div>
+        </article>
+      </section>
+
+      <p id="decodeResult" class="verify-result decode-result neutral" aria-live="polite">Decode result will appear here.</p>
+
+      <section class="result-grid" aria-label="Decoded JWT output">
+        <article class="panel">
+          <div class="panel-header">
+            <h2>Header</h2>
+            <button id="copyHeaderBtn" class="plain-button" type="button">Copy</button>
+          </div>
+          <pre id="headerOutput" class="json-output" aria-label="Decoded JWT header"></pre>
+        </article>
+
+        <article class="panel">
+          <div class="panel-header">
+            <h2>Payload</h2>
+            <button id="copyPayloadBtn" class="plain-button" type="button">Copy</button>
+          </div>
+          <pre id="payloadOutput" class="json-output" aria-label="Decoded JWT payload"></pre>
+        </article>
+      </section>
+
+      <section class="panel" aria-label="JWT claim details">
+        <div class="panel-header">
+          <h2>Details</h2>
+        </div>
+        <dl class="value-list">
+          <div class="value-row">
+            <dt class="value-label">Algorithm</dt>
+            <dd id="algorithmResult" class="value-output">-</dd>
+          </div>
+          <div class="value-row">
+            <dt class="value-label">Type</dt>
+            <dd id="typeResult" class="value-output">-</dd>
+          </div>
+          <div class="value-row">
+            <dt class="value-label">Subject</dt>
+            <dd id="subjectResult" class="value-output">-</dd>
+          </div>
+          <div class="value-row">
+            <dt class="value-label">Issuer</dt>
+            <dd id="issuerResult" class="value-output">-</dd>
+          </div>
+          <div class="value-row">
+            <dt class="value-label">Audience</dt>
+            <dd id="audienceResult" class="value-output">-</dd>
+          </div>
+          <div class="value-row">
+            <dt class="value-label">Issued at</dt>
+            <dd id="issuedAtResult" class="value-output">-</dd>
+          </div>
+          <div class="value-row">
+            <dt class="value-label">Not before</dt>
+            <dd id="notBeforeResult" class="value-output">-</dd>
+          </div>
+          <div class="value-row">
+            <dt class="value-label">Expires</dt>
+            <dd id="expiresResult" class="value-output">-</dd>
+          </div>
+          <div class="value-row">
+            <dt class="value-label">Time status</dt>
+            <dd id="timeStatusResult" class="value-output">-</dd>
+          </div>
+        </dl>
+      </section>
+    </section>
+
+    <section id="encodeView" class="mode-view" hidden>
+      <section class="toolbar encode-toolbar" aria-label="JWT encode controls">
+        <button id="encodeBtn" type="button">Encode token</button>
+      </section>
+
+      <section class="result-grid encode-grid" aria-label="JWT encoder input">
+        <article class="encode-field panel">
+          <div class="panel-header">
+            <h2>Header JSON</h2>
+          </div>
+          <textarea id="encodeHeaderInput" class="encode-json" spellcheck="false">{
+  "alg": "none",
+  "typ": "JWT"
+}</textarea>
+        </article>
+        <article class="encode-field panel">
+          <div class="panel-header">
+            <h2>Payload JSON</h2>
+          </div>
+          <textarea id="encodePayloadInput" class="encode-json" spellcheck="false">{
+  "null": null,
+  "boolean": [
+    true,
+    false
+  ],
+  "number": [
+    0,
+    1.5,
+    20000,
+    -1234567890
+  ],
+  "strings": {
+    "firstname": "Jane",
+    "lastname": "Gray",
+    "hobbies": [
+      "X-Ray",
+      "Flying",
+      {
+        "teams": [
+          "X-Men",
+          "Mutants"
+        ]
+      }
+    ],
+    "address": "unknown"
+  }
+}</textarea>
+        </article>
+      </section>
+
+      <p id="encodeResult" class="verify-result encode-result neutral" aria-live="polite">Encode supports unsigned tokens, HMAC secrets, and PEM PKCS#8 private keys.</p>
+
+      <section class="jwt-grid" aria-label="JWT signature settings and generated token">
+        <article class="panel generated-token-panel" aria-label="Generated JWT token">
+          <div class="panel-header">
+            <h2>Generated token</h2>
+            <button id="copyGeneratedTokenBtn" class="plain-button" type="button">Copy</button>
+          </div>
+          <pre id="generatedTokenOutput" class="generated-token" aria-label="Generated JWT token output"></pre>
+        </article>
+
+        <article class="panel">
+          <div class="panel-header">
+            <h2>Signature</h2>
+          </div>
+          <div class="panel-body">
+            <div class="field">
+              <label for="encodeAlgorithm">Algorithm</label>
+              <select id="encodeAlgorithm">
+                <option value="none" selected>none</option>
+                <option value="HS256">HS256</option>
+                <option value="HS384">HS384</option>
+                <option value="HS512">HS512</option>
+                <option value="RS256">RS256</option>
+                <option value="RS384">RS384</option>
+                <option value="RS512">RS512</option>
+                <option value="PS256">PS256</option>
+                <option value="PS384">PS384</option>
+                <option value="PS512">PS512</option>
+                <option value="ES256">ES256</option>
+                <option value="ES384">ES384</option>
+                <option value="ES512">ES512</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="encodeSecret">Secret or PKCS#8 private key</label>
+              <textarea id="encodeSecret" class="key-input" spellcheck="false" autocomplete="off"></textarea>
+            </div>
+          </div>
+        </article>
+      </section>
+    </section>
+
+    <section class="panel supported-panel" aria-label="Supported JWT features">
+      <div class="panel-header">
+        <h2>Supported features</h2>
+      </div>
+      <ul class="supported-list">
+        <li>Decodes standard three-part JWT tokens locally.</li>
+        <li>Displays header, payload, registered claims, and token time status.</li>
+        <li>Verifies HMAC signatures with shared secrets: HS256, HS384, HS512.</li>
+        <li>Verifies RSA public-key signatures with PEM public keys: RS256, RS384, RS512.</li>
+        <li>Verifies RSA-PSS public-key signatures with PEM public keys: PS256, PS384, PS512.</li>
+        <li>Verifies ECDSA public-key signatures with PEM public keys: ES256, ES384, ES512.</li>
+        <li>Encodes unsigned tokens, HMAC-signed tokens, RSA/RSA-PSS-signed tokens, and ECDSA-signed tokens.</li>
+        <li>Signs with HMAC secrets for HS256, HS384, HS512.</li>
+        <li>Signs with PEM PKCS#8 private keys for RS256, RS384, RS512, PS256, PS384, PS512, ES256, ES384, ES512.</li>
+        <li>Validates HMAC signing key length before encode: 256 bits for HS256, 384 bits for HS384, 512 bits for HS512.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="../assets/toolkit/tool.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>

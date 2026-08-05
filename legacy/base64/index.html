@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Simple Base64 decoder/encoder - fast, easy to use, pure javascript version.</title> 
+    <meta charset="utf-8">
+    <link rel="icon" type="image/x-icon" href="./../img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Online encode/decode base64 string as you type">
+    <meta name="author" content="Johny Kvsky">
+    <meta name="keywords" content="base64,encode,decode,free,tool,secure">
+    <link rel="stylesheet" href="./../css/normalize.min.css">
+    <link rel="stylesheet" href="./../css/skeleton.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head> 
+<body class="background" id="body">
+    <div class="container-fluid">
+    <span onclick="goUp()" id="top_button" title="Go to top">go up</span>
+      <div class="row">
+            <div class="sixteen columns help-text">
+                <a href="https://johnykvsky.github.io">Home</a>
+            </div>
+      </div>
+    <div class="row">
+      <div class="sixteen columns">
+        <p id="result"></p>
+      </div>
+    </div>
+      <div class="row">
+        <div class="four columns">
+          <span class="help-text">encoded string</span>
+          <textarea id="source" class="textarea" placeholder=" Enter string here...">eyJudWxsIjpudWxsLCJib29sZWFuIjpbdHJ1ZSxmYWxzZV0sIm51bWJlciI6WzAsMS41LDJlNCwtMTIzNDU2Nzg5MF0sInN0cmluZ3MiOnsiZmlyc3RuYW1lIjoiSmFuZSIsImxhc3RuYW1lIjoiR3JheSIsImhvYmJpZXMiOlsiWC1SYXkiLCJGbHlpbmciLHsidGVhbXMiOlsiWC1NZW4iLCJNdXRhbnRzIl19XSwiYWRkcmVzcyI6InVua25vd24ifX0=</textarea> 
+          <button class="btn btn-sm btn-secondary" id="switchtheme">Dark Theme</button>
+        </div>
+        <div class="twelve columns">
+          <span class="help-text">decoded string</span>
+          <textarea id="output" class="output" placeholder="">ss</textarea>
+        </div>
+      </div>
+      <br />
+      <p class="footer">by <a href="https://github.com/johnykvsky/johnykvsky.github.io">Johny Kvsky</a></p>
+    </div>
+    <script src="./js/scripts.js"></script>
+    <script>decode();</script>
+</body> 
+</html> 

@@ -1,0 +1,34 @@
+body {padding-top: 10px;}
+@media only screen and (max-width: 768px){
+    body {min-width: 350px;}
+}
+
+.row {text-align:center}
+
+.button:hover,button:hover,.button:focus,button:focus {
+  color: #333;
+  border-color: #888;
+  outline: 0; 
+}
+.button.button-primary, button.button-primary {
+  color: #FFF;
+  background-color: #33C3F0;
+  border-color: #33C3F0;
+}
+.button.button-primary:hover,button.button-primary:hover,.button.button-primary:focus,button.button-primary:focus {
+  color: #FFF;
+  background-color: #1EAEDB;
+  border-color: #1EAEDB;
+}
+
+.footer {font-size:10px;}
+.footer a {text-decoration: none;}
+.help-text a {text-decoration: none;}
+.help-text {font-size: 12px;color:#6a737d;}
+
+#uuid_result  {font-size:24px;}
+
+input {display: inline-block!important;}
+.input-uuid {width: 300px!important;margin-bottom: 0px!important;}
+#validate_result {display:block!important;}
+#validate_uuid {margin-bottom: 0px!important;}

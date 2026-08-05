@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Online UUIDv4 generator - fast and secure, pure javascript version</title> 
+    <meta charset="utf-8">
+    <link rel="icon" type="image/x-icon" href="./../img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Online UUID v4 generator, fast, secure, easy to use, pure javascript, with crypto library">
+    <meta name="author" content="Johny Kvsky">
+    <meta name="keywords" content="JavaScript, js, uuid, uuidv4, generate, generator, online, crypto, unique">
+    <link rel="stylesheet" href="./../css/normalize.min.css">
+    <link rel="stylesheet" href="./../css/skeleton.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head> 
+<body>
+    <div class="container-fluid">
+      <div>
+            <div class="sixteen columns help-text">
+                <a href="https://johnykvsky.github.io">Home</a>
+            </div>
+      </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <h3>Online UUID v4 generator</h3>
+                <p>More about uuid <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">here</a>.</p>
+                <p>Pure JavaScript version, using crypto library. Want an UUID v4? Just press a button, how many times you want.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+            <p><button id="uuid_generator">Generate UUID v4</button></p>
+            <p>
+                <span id="uuid_result"></span>
+                <br>
+                <span class="help-text">
+                    <a id="copy_uuid" href="#">copy to clipboard</a>
+                </span>
+            </p>
+            <p>
+                <input type="text" name="uuid" id="uuid" class="input-uuid" /> <button id="validate_uuid">Validate UUID</button>
+                <span id="validate_result" class="help-text"><br /></span>
+            </p>
+            </div>
+        </div>
+        <br />
+        <p class="footer">by <a href="https://github.com/johnykvsky/johnykvsky.github.io">Johny Kvsky</a></p>
+    </div>
+<script type="text/javascript" src="./js/script.js"></script>
+</body> 
+</html> 
