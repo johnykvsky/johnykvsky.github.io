@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Texas Hold'em Poker Chances & Equity Calculator</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Simulation Progress Bar -->
+    <div id="simProgressBar" class="sim-progress-bar">
+        <div id="simProgressFill" class="sim-progress-fill"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>♠ Texas Hold'em Poker Chances Calculator ♥</h1>
+            <p>Real-time Monte Carlo equity calculator with cryptographically secure shuffling</p>
+        </header>
+
+        <!-- Controls Bar -->
+        <div class="controls-bar">
+            <div class="control-group">
+                <label for="numPlayers">Players:</label>
+                <select id="numPlayers">
+                    <option value="2">2 Players (Heads Up)</option>
+                    <option value="3">3 Players</option>
+                    <option value="4">4 Players</option>
+                    <option value="5">5 Players</option>
+                    <option value="6" selected>6 Players (6-Max)</option>
+                    <option value="7">7 Players</option>
+                    <option value="8">8 Players</option>
+                    <option value="9">9 Players (Full Ring)</option>
+                    <option value="10">10 Players</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <div class="sim-info-badge" title="Monte Carlo simulation with 5,000 random plays per calculation">
+                    <span class="sim-badge-dot"></span>
+                    <span class="sim-info-label">Simulation:</span>
+                    <span class="sim-info-val">5,000 plays</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="checkbox-label" title="Burn 1 card before Flop, Turn, and River">
+                    <input type="checkbox" id="burnCards" checked>
+                    <span>Burn Cards (Default)</span>
+                </label>
+            </div>
+
+            <div class="button-group">
+                <button id="calcBtn" class="btn btn-primary">
+                    <span>⚡ Run Simulation</span>
+                </button>
+                <button id="shareBtn" class="btn btn-secondary" title="Copy shareable link for this hand setup">
+                    <span>📋 Share Hand</span>
+                </button>
+                <button id="clearAllBtn" class="btn btn-secondary">
+                    <span>↺ Reset Table</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Poker Table Felt Area -->
+        <div class="poker-table">
+            <!-- Hero Player (You) -->
+            <div class="hero-player-box">
+                <div class="player-info-side">
+                    <span class="hero-tag">Hero</span>
+                    <div>
+                        <div class="player-title">Your Hand</div>
+                        <div id="heroHandDesc" style="font-size: 0.8rem; color: var(--text-muted);">Select 2 hole cards to calculate</div>
+                    </div>
+                </div>
+
+                <div class="player-cards">
+                    <div class="card-slot" id="hero-0" data-slot="hero-0" title="Click to select Hero Card 1">
+                        <div class="card-slot-placeholder">
+                            <span class="plus-icon">+</span>
+                            <span>Card 1</span>
+                        </div>
+                    </div>
+                    <div class="card-slot" id="hero-1" data-slot="hero-1" title="Click to select Hero Card 2">
+                        <div class="card-slot-placeholder">
+                            <span class="plus-icon">+</span>
+                            <span>Card 2</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Equity Display -->
+                <div class="equity-display">
+                    <div class="equity-pill highlight">
+                        <div class="equity-pill-label">Equity</div>
+                        <div class="equity-pill-val" id="heroEquityVal">-%</div>
+                    </div>
+                    <div class="equity-pill win">
+                        <div class="equity-pill-label">Win</div>
+                        <div class="equity-pill-val" id="heroWinVal">-%</div>
+                    </div>
+                    <div class="equity-pill tie">
+                        <div class="equity-pill-label">Tie</div>
+                        <div class="equity-pill-val" id="heroTieVal">-%</div>
+                    </div>
+                    <div class="equity-pill loss">
+                        <div class="equity-pill-label">Loss</div>
+                        <div class="equity-pill-val" id="heroLossVal">-%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community Cards (Flop, Turn, River) -->
+            <div class="community-container">
+                <div class="table-section-title">Community Cards (Table)</div>
+                <div class="board-cards-group">
+                    <!-- Flop -->
+                    <div class="street-group">
+                        <span class="street-label">Flop</span>
+                        <div class="street-cards">
+                            <div class="card-slot" id="flop-0" data-slot="flop-0" title="Click to select Flop card 1">
+                                <div class="card-slot-placeholder">
+                                    <span class="plus-icon">+</span>
+                                    <span>Flop 1</span>
+                                </div>
+                            </div>
+                            <div class="card-slot" id="flop-1" data-slot="flop-1" title="Click to select Flop card 2">
+                                <div class="card-slot-placeholder">
+                                    <span class="plus-icon">+</span>
+                                    <span>Flop 2</span>
+                                </div>
+                            </div>
+                            <div class="card-slot" id="flop-2" data-slot="flop-2" title="Click to select Flop card 3">
+                                <div class="card-slot-placeholder">
+                                    <span class="plus-icon">+</span>
+                                    <span>Flop 3</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Turn -->
+                    <div class="street-group">
+                        <span class="street-label">Turn</span>
+                        <div class="street-cards">
+                            <div class="card-slot" id="turn-0" data-slot="turn-0" title="Click to select Turn card">
+                                <div class="card-slot-placeholder">
+                                    <span class="plus-icon">+</span>
+                                    <span>Turn</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- River -->
+                    <div class="street-group">
+                        <span class="street-label">River</span>
+                        <div class="street-cards">
+                            <div class="card-slot" id="river-0" data-slot="river-0" title="Click to select River card">
+                                <div class="card-slot-placeholder">
+                                    <span class="plus-icon">+</span>
+                                    <span>River</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Opponents Section -->
+            <div class="table-section-title" style="margin-top: 10px;">Opponents (Leave empty for random hands or click to pick cards)</div>
+            <div class="opponents-grid" id="opponentsGrid">
+                <!-- Populated dynamically based on numPlayers -->
+            </div>
+        </div>
+
+        <!-- Street-by-Street Odds & Changes to Win Panel -->
+        <div class="analytics-section">
+            <div class="analytics-card">
+                <div class="analytics-title">
+                    <span>Street-by-Street Odds & Changes</span>
+                    <span id="calcStatusText" style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">Ready</span>
+                </div>
+                
+                <div class="street-timeline">
+                    <!-- Pre-Flop -->
+                    <div class="timeline-step" id="stepPreFlop">
+                        <div class="step-info">
+                            <span class="step-name">Pre-Flop Equity</span>
+                            <span class="step-subtext" id="preFlopSubtext">Initial 2-card hole odds</span>
+                        </div>
+                        <div class="step-equity-badge">
+                            <span class="step-win-pct" id="preFlopWinPct">-%</span>
+                            <span class="step-delta neutral" id="preFlopDelta">Baseline</span>
+                        </div>
+                    </div>
+
+                    <!-- Pre-Turn (Flop) -->
+                    <div class="timeline-step" id="stepPreTurn">
+                        <div class="step-info">
+                            <span class="step-name">Pre-Turn (Flop Dealt)</span>
+                            <span class="step-subtext" id="preTurnSubtext">Odds with 3 community cards</span>
+                        </div>
+                        <div class="step-equity-badge">
+                            <span class="step-win-pct" id="preTurnWinPct">-%</span>
+                            <span class="step-delta neutral" id="preTurnDelta">Pending</span>
+                        </div>
+                    </div>
+
+                    <!-- Pre-River (Turn) -->
+                    <div class="timeline-step" id="stepPreRiver">
+                        <div class="step-info">
+                            <span class="step-name">Pre-River (Turn Dealt)</span>
+                            <span class="step-subtext" id="preRiverSubtext">Odds with 4 community cards</span>
+                        </div>
+                        <div class="step-equity-badge">
+                            <span class="step-win-pct" id="preRiverWinPct">-%</span>
+                            <span class="step-delta neutral" id="preRiverDelta">Pending</span>
+                        </div>
+                    </div>
+
+                    <!-- River (Showdown) -->
+                    <div class="timeline-step" id="stepRiver">
+                        <div class="step-info">
+                            <span class="step-name">River (Showdown)</span>
+                            <span class="step-subtext" id="riverSubtext">Final board result</span>
+                        </div>
+                        <div class="step-equity-badge">
+                            <span class="step-win-pct" id="riverWinPct">-%</span>
+                            <span class="step-delta neutral" id="riverDelta">Pending</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hand Probability Distribution -->
+            <div class="analytics-card">
+                <div class="analytics-title">
+                    <span>Hero Final Hand Probabilities</span>
+                    <span id="trialsBadge" style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">5,000 Trials</span>
+                </div>
+
+                <div class="hand-dist-list" id="handDistList">
+                    <!-- Populated dynamically (Royal flush, Straight flush, Quads, Full House, etc.) -->
+                </div>
+            </div>
+
+            <!-- Draws & Outs Panel -->
+            <div class="analytics-card" id="outsCard">
+                <div class="analytics-title">
+                    <span>Draws & Outs</span>
+                    <span id="outsStatusText" style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">Flop / Turn</span>
+                </div>
+                <div id="outsContent">
+                    <div style="text-align: center; padding: 24px 12px; color: var(--text-muted); font-size: 0.85rem; font-style: italic;">
+                        Select 3 Flop cards or 4 Turn cards to calculate draws & outs
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pot Odds & Decision Advisor -->
+            <div class="analytics-card" id="potOddsCard">
+                <div class="analytics-title">
+                    <span>Pot Odds & Decision Advisor</span>
+                    <span id="evBadge" class="ev-badge neutral">Enter Pot & Bet</span>
+                </div>
+                <div class="pot-odds-inputs">
+                    <div class="pot-input-group">
+                        <label for="potSizeInput">Pot Size ($):</label>
+                        <input type="number" id="potSizeInput" placeholder="100" min="0" step="1">
+                    </div>
+                    <div class="pot-input-group">
+                        <label for="callAmountInput">Bet to Call ($):</label>
+                        <input type="number" id="callAmountInput" placeholder="25" min="0" step="1">
+                    </div>
+                </div>
+                <div class="pot-odds-results" id="potOddsResults">
+                    <div class="pot-stat-row">
+                        <span class="pot-stat-label">Pot Odds:</span>
+                        <span class="pot-stat-val" id="potOddsRatioVal">-</span>
+                    </div>
+                    <div class="pot-stat-row">
+                        <span class="pot-stat-label">Required Equity:</span>
+                        <span class="pot-stat-val" id="potReqEquityVal">-%</span>
+                    </div>
+                    <div class="pot-stat-row">
+                        <span class="pot-stat-label">Hero Equity:</span>
+                        <span class="pot-stat-val" id="potHeroEquityVal">-%</span>
+                    </div>
+                    <div class="pot-stat-row">
+                        <span class="pot-stat-label">Expected Value (EV):</span>
+                        <span class="pot-stat-val" id="potEvVal">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toastNotification" class="toast-notification"></div>
+
+    <!-- Share Hand Modal -->
+    <div class="modal-overlay" id="shareModal">
+        <div class="picker-modal" style="max-width: 540px;">
+            <div class="picker-header">
+                <div class="picker-title">📋 Share Hand Scenario</div>
+                <button class="picker-close-btn" id="closeShareModalBtn">&times;</button>
+            </div>
+            <div class="picker-body" style="gap: 16px;">
+                <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.4;">
+                    Anyone with this link will be able to view this exact table setup, community cards, and odds:
+                </p>
+                <div class="share-input-box">
+                    <input type="text" id="shareUrlInput" readonly class="share-url-field">
+                    <button id="copyShareBtn" class="btn btn-primary" title="Copy to clipboard">
+                        <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span id="copyBtnText">Copy to Clipboard</span>
+                    </button>
+                </div>
+            </div>
+            <div class="picker-footer" style="justify-content: flex-end;">
+                <button class="btn btn-secondary" id="cancelShareBtn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Two-Step Visual Card Picker Modal -->
+    <div class="modal-overlay" id="cardPickerModal">
+        <div class="picker-modal">
+            <div class="picker-header">
+                <div class="picker-title" id="pickerModalTitle">Select Card</div>
+                <button class="picker-close-btn" id="closePickerBtn">&times;</button>
+            </div>
+
+            <div class="picker-body">
+                <!-- Step 1: Suit / Color Selection -->
+                <div>
+                    <div class="picker-section-title">Step 1: Pick Suit (Color & Icon)</div>
+                    <div class="suit-picker-grid">
+                        <button class="suit-btn black" data-suit="0">
+                            <span class="suit-symbol">♠</span>
+                            <span class="suit-name">Spades</span>
+                        </button>
+                        <button class="suit-btn red" data-suit="1">
+                            <span class="suit-symbol">♥</span>
+                            <span class="suit-name">Hearts</span>
+                        </button>
+                        <button class="suit-btn red" data-suit="2">
+                            <span class="suit-symbol">♦</span>
+                            <span class="suit-name">Diamonds</span>
+                        </button>
+                        <button class="suit-btn black" data-suit="3">
+                            <span class="suit-symbol">♣</span>
+                            <span class="suit-name">Clubs</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Card Rank Selection -->
+                <div>
+                    <div class="picker-section-title">Step 2: Pick Card Rank</div>
+                    <div class="rank-picker-grid" id="rankPickerGrid">
+                        <!-- Populated dynamically with ranks 2 through Ace in active suit -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="picker-footer">
+                <button class="btn btn-secondary" id="clearSlotBtn" style="color: var(--accent-red); border-color: rgba(239, 68, 68, 0.4);">
+                    <span>🗑 Clear Card</span>
+                </button>
+                <button class="btn btn-secondary" id="cancelPickerBtn">
+                    <span>Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/cards.js"></script>
+    <script src="js/evaluator.js"></script>
+    <script src="js/outs.js"></script>
+    <script src="js/random.js"></script>
+    <script src="js/simulator.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

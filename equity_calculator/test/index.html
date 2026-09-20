@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Texas Hold'em Calculator - Browser Test Suite</title>
+    <style>
+        :root {
+            --bg-color: #0b1118;
+            --card-bg: #151f2c;
+            --border-color: #24354a;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --accent-green: #2ea043;
+            --accent-red: #f85149;
+            --accent-blue: #58a6ff;
+            --gold: #d29922;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            padding: 24px 16px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        header {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #1e2c3e;
+            border-color: var(--accent-blue);
+        }
+
+        .btn-primary {
+            background-color: var(--accent-green);
+            border-color: var(--accent-green);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: #2c974b;
+        }
+
+        .summary-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .stat-val {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .val-passed { color: var(--accent-green); }
+        .val-failed { color: var(--accent-red); }
+        .val-rate { color: var(--gold); }
+        .val-time { color: var(--accent-blue); }
+
+        .suite-section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 18px;
+            overflow: hidden;
+        }
+
+        .suite-header {
+            padding: 12px 18px;
+            background-color: #1a2737;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .suite-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .suite-badge {
+            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background-color: rgba(46, 160, 67, 0.2);
+            color: var(--accent-green);
+            border: 1px solid rgba(46, 160, 67, 0.4);
+        }
+
+        .badge-failure {
+            background-color: rgba(248, 81, 73, 0.2);
+            color: var(--accent-red);
+            border: 1px solid rgba(248, 81, 73, 0.4);
+        }
+
+        .test-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .test-item {
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(36, 53, 74, 0.5);
+        }
+
+        .test-item:last-child {
+            border-bottom: none;
+        }
+
+        .test-icon {
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        .test-icon.pass { color: var(--accent-green); }
+        .test-icon.fail { color: var(--accent-red); }
+
+        .test-msg {
+            flex: 1;
+            word-break: break-word;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .back-link a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>♠ Texas Hold'em Calculator - Test Suite</h1>
+            <p class="subtitle">Client-Side In-Browser Unit Test Runner (Zero Dependencies)</p>
+        </header>
+
+        <div class="controls">
+            <button class="btn btn-primary" id="runAllBtn">▶ Run All Tests</button>
+            <button class="btn" id="runEvalBtn">Hand Evaluator</button>
+            <button class="btn" id="runOutsBtn">Outs & Draws</button>
+            <button class="btn" id="runSimBtn">Simulation Engine</button>
+        </div>
+
+        <div class="summary-bar">
+            <div class="stat-card">
+                <div class="stat-val val-passed" id="statPassed">0</div>
+                <div class="stat-label">Passed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val val-failed" id="statFailed">0</div>
+                <div class="stat-label">Failed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val val-rate" id="statRate">0%</div>
+                <div class="stat-label">Pass Rate</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val val-time" id="statTime">0 ms</div>
+                <div class="stat-label">Duration</div>
+            </div>
+        </div>
+
+        <div id="resultsContainer"></div>
+
+        <div class="back-link">
+            <a href="../index.html">← Return to Poker Calculator App</a>
+        </div>
+    </div>
+
+    <!-- Application Engine Scripts -->
+    <script src="../js/cards.js"></script>
+    <script src="../js/evaluator.js"></script>
+    <script src="../js/outs.js"></script>
+    <script src="../js/random.js"></script>
+    <script src="../js/simulator.js"></script>
+
+    <script>
+        // Shared In-Browser Test Runner
+        class BrowserTestSuite {
+            constructor(name) {
+                this.name = name;
+                this.tests = [];
+                this.passed = 0;
+                this.failed = 0;
+            }
+
+            assert(condition, message) {
+                const passed = Boolean(condition);
+                if (passed) this.passed++;
+                else this.failed++;
+                this.tests.push({ passed, message });
+                console.log(passed ? `✓ ${message}` : `✗ FAIL: ${message}`);
+            }
+
+            assertEqual(actual, expected, message) {
+                this.assert(actual === expected, `${message} (Expected: ${expected}, Got: ${actual})`);
+            }
+
+            assertCloseTo(actual, expected, delta, message) {
+                this.assert(
+                    Math.abs(actual - expected) <= delta,
+                    `${message} (Expected: ~${expected}±${delta}, Got: ${typeof actual === 'number' ? actual.toFixed(2) : actual})`
+                );
+            }
+        }
+
+        function parseHand(strList) {
+            return strList.map(s => {
+                const c = parseCard(s);
+                if (!c) throw new Error(`Invalid card string: ${s}`);
+                return c.id;
+            });
+        }
+
+        function runEvaluatorSuite() {
+            const suite = new BrowserTestSuite('Hand Evaluator: Hierarchy, Kickers & 7-Card Boards');
+
+            // 1. Categories & Hierarchy
+            const royal = parseHand(['As', 'Ks', 'Qs', 'Js', 'Ts', '2d', '3h']);
+            const resRoyal = evaluateHand(royal);
+            suite.assertEqual(resRoyal.category, 9, 'Royal Flush has category 9');
+            suite.assertEqual(resRoyal.name, 'Royal Flush', 'Royal Flush name matches');
+
+            const sf = parseHand(['9h', '8h', '7h', '6h', '5h', 'Kd', 'Ac']);
+            const resSf = evaluateHand(sf);
+            suite.assertEqual(resSf.category, 9, 'Straight Flush has category 9');
+
+            const wheelSf = parseHand(['Ad', '2d', '3d', '4d', '5d', 'Ks', 'Qc']);
+            const resWheelSf = evaluateHand(wheelSf);
+            suite.assertEqual(resWheelSf.category, 9, 'Steel Wheel (5-high Straight Flush) has category 9');
+            suite.assert(resRoyal.score > resWheelSf.score, 'Royal Flush beats Steel Wheel');
+
+            const quads = parseHand(['8s', '8h', '8d', '8c', 'As', '2d', '3h']);
+            const resQuads = evaluateHand(quads);
+            suite.assertEqual(resQuads.category, 8, 'Four of a Kind has category 8');
+
+            const fh = parseHand(['Ks', 'Kh', 'Kd', 'Js', 'Jh', '2d', '3h']);
+            const resFh = evaluateHand(fh);
+            suite.assertEqual(resFh.category, 7, 'Full House has category 7');
+
+            const flush = parseHand(['As', 'Js', '8s', '6s', '2s', 'Kd', 'Qh']);
+            const resFlush = evaluateHand(flush);
+            suite.assertEqual(resFlush.category, 6, 'Flush has category 6');
+
+            const broadway = parseHand(['As', 'Kd', 'Qh', 'Jc', 'Ts', '2d', '3h']);
+            const resBroadway = evaluateHand(broadway);
+            suite.assertEqual(resBroadway.category, 5, 'Broadway Straight has category 5');
+
+            const wheel = parseHand(['Ah', '2d', '3s', '4c', '5h', 'Jd', 'Kd']);
+            const resWheel = evaluateHand(wheel);
+            suite.assertEqual(resWheel.category, 5, 'Wheel Straight (A-2-3-4-5) has category 5');
+            suite.assert(resBroadway.score > resWheel.score, 'Broadway Straight beats Wheel Straight');
+
+            const trips = parseHand(['7s', '7h', '7d', 'As', 'Kd', '2c', '3h']);
+            const resTrips = evaluateHand(trips);
+            suite.assertEqual(resTrips.category, 4, 'Three of a Kind has category 4');
+
+            const twoPair = parseHand(['Js', 'Jh', '9d', '9c', 'As', '2d', '3h']);
+            const resTwoPair = evaluateHand(twoPair);
+            suite.assertEqual(resTwoPair.category, 3, 'Two Pair has category 3');
+
+            const pair = parseHand(['Ts', 'Th', 'As', 'Kd', 'Qc', '2d', '3h']);
+            const resPair = evaluateHand(pair);
+            suite.assertEqual(resPair.category, 2, 'One Pair has category 2');
+
+            const highCard = parseHand(['As', 'Kd', 'Jc', '8h', '4s', '3d', '2c']);
+            const resHighCard = evaluateHand(highCard);
+            suite.assertEqual(resHighCard.category, 1, 'High Card has category 1');
+
+            // Category Comparisons
+            suite.assert(resRoyal.score > resQuads.score, 'Straight Flush beats Quads');
+            suite.assert(resQuads.score > resFh.score, 'Quads beat Full House');
+            suite.assert(resFh.score > resFlush.score, 'Full House beats Flush');
+            suite.assert(resFlush.score > resBroadway.score, 'Flush beats Straight');
+            suite.assert(resBroadway.score > resTrips.score, 'Straight beats Three of a Kind');
+            suite.assert(resTrips.score > resTwoPair.score, 'Three of a Kind beats Two Pair');
+            suite.assert(resTwoPair.score > resPair.score, 'Two Pair beats One Pair');
+            suite.assert(resPair.score > resHighCard.score, 'One Pair beats High Card');
+
+            // 2. Kickers & Edge Cases
+            const pair10 = evaluateHand(parseHand(['Td', 'Th', 'As', '9c', '8d']));
+            const pair2_withAce = evaluateHand(parseHand(['2s', '2h', 'As', 'Kc', 'Qd']));
+            suite.assert(pair10.score > pair2_withAce.score, 'Pair of 10s beats Pair of 2s with Ace kicker');
+
+            const pairA_KickerK = evaluateHand(parseHand(['As', 'Ah', 'Kd', '8c', '2s']));
+            const pairA_KickerQ = evaluateHand(parseHand(['As', 'Ah', 'Qd', 'Jc', 'Ts']));
+            suite.assert(pairA_KickerK.score > pairA_KickerQ.score, 'Pair of Aces with King kicker beats Pair of Aces with Queen kicker');
+
+            const pairK_987 = evaluateHand(parseHand(['Ks', 'Kh', '9d', '8c', '7s']));
+            const pairK_986 = evaluateHand(parseHand(['Ks', 'Kh', '9d', '8c', '6s']));
+            suite.assert(pairK_987.score > pairK_986.score, 'Same pair and 2 kickers: 3rd kicker (7 vs 6) breaks tie');
+
+            const twoPair_AAQQ = evaluateHand(parseHand(['As', 'Ah', 'Qd', 'Qc', '2s']));
+            const twoPair_KK22_AceKicker = evaluateHand(parseHand(['Ks', 'Kh', '2d', '2c', 'As']));
+            suite.assert(twoPair_AAQQ.score > twoPair_KK22_AceKicker.score, 'Aces and Queens beats Kings and Twos with Ace kicker');
+
+            const twoPair_AA77_2 = evaluateHand(parseHand(['As', 'Ah', '7d', '7c', '2s']));
+            const twoPair_AA66_K = evaluateHand(parseHand(['As', 'Ac', '6d', '6c', 'Ks']));
+            suite.assert(twoPair_AA77_2.score > twoPair_AA66_K.score, 'AA77 with 2 kicker beats AA66 with King kicker');
+
+            const twoPair_KKJJ_A = evaluateHand(parseHand(['Ks', 'Kh', 'Js', 'Jh', 'Ad']));
+            const twoPair_KKJJ_Q = evaluateHand(parseHand(['Ks', 'Kh', 'Js', 'Jh', 'Qd']));
+            suite.assert(twoPair_KKJJ_A.score > twoPair_KKJJ_Q.score, 'KKJJ with Ace kicker beats KKJJ with Queen kicker');
+
+            const trips3 = evaluateHand(parseHand(['3s', '3h', '3d', '4c', '5d']));
+            const trips2_withAce = evaluateHand(parseHand(['2s', '2h', '2d', 'As', 'Kd']));
+            suite.assert(trips3.score > trips2_withAce.score, 'Three 3s beats Three 2s with Ace kicker');
+
+            const fh_33322 = evaluateHand(parseHand(['3s', '3h', '3d', '2c', '2d']));
+            const fh_222AA = evaluateHand(parseHand(['2s', '2h', '2c', 'As', 'Ad']));
+            suite.assert(fh_33322.score > fh_222AA.score, 'Threes full of Twos beats Twos full of Aces');
+
+            const fh_AAAKK = evaluateHand(parseHand(['As', 'Ah', 'Ad', 'Ks', 'Kh']));
+            const fh_AAAQQ = evaluateHand(parseHand(['As', 'Ah', 'Ad', 'Qs', 'Qh']));
+            suite.assert(fh_AAAKK.score > fh_AAAQQ.score, 'Aces full of Kings beats Aces full of Queens');
+
+            const quads3 = evaluateHand(parseHand(['3s', '3h', '3d', '3c', '2d']));
+            const quads2_withAce = evaluateHand(parseHand(['2s', '2h', '2d', '2c', 'As']));
+            suite.assert(quads3.score > quads2_withAce.score, 'Four 3s beats Four 2s with Ace kicker');
+
+            const quadsK_A = evaluateHand(parseHand(['Ks', 'Kh', 'Kd', 'Kc', 'As']));
+            const quadsK_Q = evaluateHand(parseHand(['Ks', 'Kh', 'Kd', 'Kc', 'Qs']));
+            suite.assert(quadsK_A.score > quadsK_Q.score, 'Four Kings with Ace kicker beats Four Kings with Queen kicker');
+
+            const flush_AK863 = evaluateHand(parseHand(['As', 'Ks', '8s', '6s', '3s']));
+            const flush_AK862 = evaluateHand(parseHand(['As', 'Ks', '8s', '6s', '2s']));
+            suite.assert(flush_AK863.score > flush_AK862.score, 'Same 4 flush cards: 5th card (3s vs 2s) breaks tie');
+
+            const hand1 = evaluateHand(parseHand(['As', 'Kd', 'Qh', 'Jc', 'Ts']));
+            const hand2 = evaluateHand(parseHand(['Ah', 'Kc', 'Qd', 'Js', 'Tc']));
+            suite.assertEqual(hand1.score, hand2.score, 'Identical rank Broadway straights have exact equal score (chop/tie)');
+
+            // 3. 7-Card Combination Resolution
+            const threePairs = evaluateHand(parseHand(['Ks', 'Kh', 'Js', 'Jh', '8s', '8h', '2d']));
+            const expectedTwoPair = evaluateHand(parseHand(['Ks', 'Kh', 'Js', 'Jh', '8s']));
+            suite.assertEqual(threePairs.score, expectedTwoPair.score, '3 Pairs on board selects top 2 pairs with highest remaining kicker (8)');
+
+            const twoTrips = evaluateHand(parseHand(['7s', '7h', '7d', '3s', '3h', '3d', 'Kd']));
+            const expectedFh = evaluateHand(parseHand(['7s', '7h', '7d', '3s', '3c']));
+            suite.assertEqual(twoTrips.score, expectedFh.score, 'Two 3-of-a-kinds on board selects higher trips (777) and lower trips as pair (33)');
+
+            const tripsTwoPairs = evaluateHand(parseHand(['8s', '8h', '8d', 'Js', 'Jh', '4s', '4h']));
+            const expectedTripsPair = evaluateHand(parseHand(['8s', '8h', '8d', 'Js', 'Jh']));
+            suite.assertEqual(tripsTwoPairs.score, expectedTripsPair.score, 'Trips and two pairs selects trips with highest pair (888JJ)');
+
+            const sixFlush = evaluateHand(parseHand(['As', 'Ks', 'Qs', 'Js', '9s', '2s', '3d']));
+            const expectedTopFlush = evaluateHand(parseHand(['As', 'Ks', 'Qs', 'Js', '9s']));
+            suite.assertEqual(sixFlush.score, expectedTopFlush.score, '6-card flush selects top 5 flush cards (excludes 2s)');
+
+            const sixStraight = evaluateHand(parseHand(['4s', '5h', '6d', '7c', '8s', '9d', '2c']));
+            suite.assertEqual(sixStraight.description, 'Straight, 9 High', '6-card straight correctly selects 9-high straight over 8-high');
+
+            const wheelWith6 = evaluateHand(parseHand(['As', '2h', '3d', '4c', '5s', '6d', 'Kh']));
+            suite.assertEqual(wheelWith6.description, 'Straight, 6 High', 'Wheel with a 6 correctly resolves to 6-high straight');
+
+            const counterfeited = evaluateHand(parseHand(['2s', '2d', '5c', '5d', '6c', '6d', 'Ks']));
+            const boardPlaying = evaluateHand(parseHand(['6c', '6d', '5c', '5d', 'Ks', '3h', '4h']));
+            suite.assertEqual(counterfeited.score, boardPlaying.score, 'Counterfeited pair: 22 on 5566K board yields 6655K (plays the board)');
+
+            return suite;
+        }
+
+        function runOutsSuite() {
+            const suite = new BrowserTestSuite('Outs & Draw Detection Engine');
+
+            const heroFlush = parseHand(['As', 'Ks']);
+            const boardFlush = parseHand(['Qs', '7s', '2d']);
+            const outsFlush = calculateOutsAndDraws(heroFlush, boardFlush);
+            suite.assert(outsFlush.draws.some(d => d.type === 'FLUSH_DRAW' && d.outsCount === 9), 'Detects 9-out Flush Draw on Flop');
+            suite.assert(outsFlush.draws.some(d => d.name.includes('Nut Flush Draw')), 'Identifies Nut Flush Draw when holding Ace');
+            suite.assertCloseTo(outsFlush.turnProb, 48.9, 0.5, 'Turn hit probability calculated accurately (~48.9%)');
+            suite.assertCloseTo(outsFlush.riverProb, 74.5, 0.5, 'Flop-to-River probability calculated accurately (~74.5%)');
+
+            const heroNonNutFlush = parseHand(['8s', '7s']);
+            const outsNonNutFlush = calculateOutsAndDraws(heroNonNutFlush, boardFlush);
+            suite.assert(outsNonNutFlush.draws.some(d => d.type === 'FLUSH_DRAW' && d.outsCount === 9), 'Detects 9-out Flush Draw for 8s 7s');
+            suite.assert(!outsNonNutFlush.draws.some(d => d.name.includes('Nut Flush Draw')), 'Does NOT flag as Nut Flush Draw without Ace');
+
+            const heroOESD = parseHand(['8s', '9h']);
+            const boardOESD = parseHand(['6d', '7c', '2s']);
+            const outsOESD = calculateOutsAndDraws(heroOESD, boardOESD);
+            const oestDraw = outsOESD.draws.find(d => d.type === 'OESD');
+            suite.assert(!!oestDraw, 'Detects Open-Ended Straight Draw (OESD)');
+            suite.assertEqual(oestDraw.outsCount, 8, 'OESD has exactly 8 straight outs');
+
+            const heroGutshot = parseHand(['8s', '9h']);
+            const boardGutshot = parseHand(['6d', 'Tc', '2s']);
+            const outsGutshot = calculateOutsAndDraws(heroGutshot, boardGutshot);
+            const gutshotDraw = outsGutshot.draws.find(d => d.type === 'GUTSHOT');
+            suite.assert(!!gutshotDraw, 'Detects Gutshot Straight Draw');
+            suite.assertEqual(gutshotDraw.outsCount, 4, 'Gutshot has exactly 4 straight outs');
+
+            const heroDblGut = parseHand(['7s', '9h']);
+            const boardDblGut = parseHand(['5d', '8c', 'Jc']);
+            const outsDblGut = calculateOutsAndDraws(heroDblGut, boardDblGut);
+            suite.assert(
+                outsDblGut.draws.some(d => (d.type === 'DOUBLE_GUTSHOT' || d.type === 'OESD') && d.outsCount === 8),
+                'Detects 8-out straight draw (Double Gutshot / 8-out draw)'
+            );
+
+            const heroOvercards = parseHand(['As', 'Kh']);
+            const boardOvercards = parseHand(['9d', '5c', '2s']);
+            const outsOvercards = calculateOutsAndDraws(heroOvercards, boardOvercards);
+            const overcardsDraw = outsOvercards.draws.find(d => d.type === 'TWO_OVERCARDS');
+            suite.assert(!!overcardsDraw, 'Detects Two Overcards');
+            suite.assertEqual(overcardsDraw.outsCount, 6, 'Two Overcards has exactly 6 outs');
+
+            const heroOneOvercard = parseHand(['As', '8h']);
+            const boardOneOvercard = parseHand(['Kd', '9c', '2s']);
+            const outsOneOvercard = calculateOutsAndDraws(heroOneOvercard, boardOneOvercard);
+            const oneOvercardDraw = outsOneOvercard.draws.find(d => d.type === 'ONE_OVERCARD');
+            suite.assert(!!oneOvercardDraw, 'Detects One Overcard');
+            suite.assertEqual(oneOvercardDraw.outsCount, 3, 'One Overcard has exactly 3 outs');
+
+            const heroSet = parseHand(['7s', '7h']);
+            const boardSet = parseHand(['Kd', '9c', '2s']);
+            const outsSet = calculateOutsAndDraws(heroSet, boardSet);
+            const setDraw = outsSet.draws.find(d => d.type === 'SET_MINING');
+            suite.assert(!!setDraw, 'Detects Set Mining');
+            suite.assertEqual(setDraw.outsCount, 2, 'Set Mining has exactly 2 outs');
+
+            const turnBoardFlush = parseHand(['Qs', '7s', '2d', '4c']);
+            const outsTurnFlush = calculateOutsAndDraws(heroFlush, turnBoardFlush);
+            suite.assertEqual(outsTurnFlush.turnProb, 0, 'On Turn, turnProb is 0 (Turn already dealt)');
+            suite.assert(outsTurnFlush.riverProb > 0, 'On Turn, riverProb is calculated for the River card');
+
+            return suite;
+        }
+
+        function runSimulatorSuite() {
+            const suite = new BrowserTestSuite('Simulation Engine: Exact Math & Monte Carlo');
+
+            // Exact Turn Enumeration
+            const heroAA = parseHand(['As', 'Ah']);
+            const oppKK = [parseHand(['Ks', 'Kh'])];
+            const turnBoard = parseHand(['Qs', 'Jd', '2c', '3h']);
+
+            const resTurnExact = runSimulation({
+                heroCards: heroAA,
+                opponentCards: oppKK,
+                numPlayers: 2,
+                communityCards: turnBoard,
+                burnCards: true
+            });
+
+            suite.assertEqual(resTurnExact.isExact, true, 'Turn with known hands triggers 100% exact enumeration');
+            suite.assertEqual(resTurnExact.iterations, 44, 'Turn exact enumeration evaluates exactly 44 river runouts');
+            suite.assertCloseTo(resTurnExact.hero.winPct, 95.45, 0.01, 'Hero win % on turn is exactly 95.45% (42/44)');
+            suite.assertCloseTo(resTurnExact.hero.lossPct, 4.55, 0.01, 'Hero loss % on turn is exactly 4.55% (2/44)');
+            suite.assertEqual(resTurnExact.hero.tiePct, 0, 'No ties possible in this specific runout');
+
+            // Exact River Enumeration
+            const riverBoardWin = parseHand(['Qs', 'Jd', '2c', '3h', '4s']);
+            const resRiverExact = runSimulation({
+                heroCards: heroAA,
+                opponentCards: oppKK,
+                numPlayers: 2,
+                communityCards: riverBoardWin,
+                burnCards: true
+            });
+            suite.assertEqual(resRiverExact.isExact, true, 'River with known hands triggers exact calculation');
+            suite.assertEqual(resRiverExact.iterations, 1, 'River evaluates exactly 1 showdown combination');
+            suite.assertEqual(resRiverExact.hero.winPct, 100, 'Hero wins 100% on river when ahead');
+
+            // Exact River Split
+            const heroAK = parseHand(['As', 'Kd']);
+            const oppAK = [parseHand(['Ah', 'Kc'])];
+            const riverBoardSplit = parseHand(['2s', '3d', '7c', '8h', '9s']);
+            const resRiverSplit = runSimulation({
+                heroCards: heroAK,
+                opponentCards: oppAK,
+                numPlayers: 2,
+                communityCards: riverBoardSplit,
+                burnCards: true
+            });
+            suite.assertEqual(resRiverSplit.hero.tiePct, 100, 'Identical holdings on blank board result in 100% split pot (tie)');
+            suite.assertEqual(resRiverSplit.hero.winPct, 0, 'Neither player wins outright on chopped pot');
+
+            // Exact River Unknown Opponent
+            const resRiverUnknownOpp = runSimulation({
+                heroCards: heroAA,
+                opponentCards: [[]],
+                numPlayers: 2,
+                communityCards: riverBoardWin,
+                burnCards: true
+            });
+            suite.assertEqual(resRiverUnknownOpp.isExact, true, 'River with 1 unknown opponent triggers exact enumeration');
+            suite.assertEqual(resRiverUnknownOpp.iterations, 990, 'Evaluates all 990 combinations (45 C 2)');
+
+            // Monte Carlo Simulations
+            const simHeadsUp = runSimulation({
+                heroCards: heroAA,
+                opponentCards: oppKK,
+                numPlayers: 2,
+                iterations: 5000,
+                burnCards: true
+            });
+            suite.assertCloseTo(simHeadsUp.hero.winPct, 81.5, 2.0, 'AA vs KK Heads-Up win rate is ~81.5% ±2%');
+            suite.assert(simHeadsUp.hero.tiePct < 2.0, 'AA vs KK tie rate is low (< 2%)');
+
+            const sim10Player = runSimulation({
+                heroCards: heroAA,
+                numPlayers: 10,
+                iterations: 5000,
+                burnCards: true
+            });
+            suite.assertCloseTo(sim10Player.hero.equityPct, 31.5, 2.0, 'AA in 10-Player Full Ring equity is ~31.5% ±2%');
+
+            const heroAKs = parseHand(['As', 'Ks']);
+            const oppQQ = [parseHand(['Qh', 'Qd'])];
+            const simCoinFlip = runSimulation({
+                heroCards: heroAKs,
+                opponentCards: oppQQ,
+                numPlayers: 2,
+                iterations: 5000,
+                burnCards: true
+            });
+            suite.assertCloseTo(simCoinFlip.hero.equityPct, 46.0, 3.0, 'AKs vs QQ classic coin flip equity is ~46% ±3%');
+
+            const simNoBurn = runSimulation({
+                heroCards: heroAA,
+                opponentCards: oppKK,
+                numPlayers: 2,
+                iterations: 1000,
+                burnCards: false
+            });
+            suite.assertEqual(simNoBurn.iterations, 1000, 'Simulation runs successfully with burnCards disabled');
+            suite.assertCloseTo(simNoBurn.hero.winPct, 81.5, 3.0, 'Burn cards toggle preserves unbiased win rate');
+
+            return suite;
+        }
+
+        function renderSuites(suites, durationMs) {
+            const container = document.getElementById('resultsContainer');
+            container.innerHTML = '';
+
+            let totalPassed = 0;
+            let totalFailed = 0;
+
+            suites.forEach(suite => {
+                totalPassed += suite.passed;
+                totalFailed += suite.failed;
+
+                const section = document.createElement('div');
+                section.className = 'suite-section';
+
+                const header = document.createElement('div');
+                header.className = 'suite-header';
+
+                const title = document.createElement('div');
+                title.className = 'suite-title';
+                title.textContent = suite.name;
+
+                const badge = document.createElement('span');
+                badge.className = `suite-badge ${suite.failed === 0 ? 'badge-success' : 'badge-failure'}`;
+                badge.textContent = `${suite.passed}/${suite.tests.length} Passed`;
+
+                header.appendChild(title);
+                header.appendChild(badge);
+                section.appendChild(header);
+
+                const ul = document.createElement('ul');
+                ul.className = 'test-list';
+
+                suite.tests.forEach(t => {
+                    const li = document.createElement('li');
+                    li.className = 'test-item';
+
+                    const icon = document.createElement('span');
+                    icon.className = `test-icon ${t.passed ? 'pass' : 'fail'}`;
+                    icon.textContent = t.passed ? '✓' : '✗';
+
+                    const msg = document.createElement('span');
+                    msg.className = 'test-msg';
+                    msg.textContent = t.message;
+
+                    li.appendChild(icon);
+                    li.appendChild(msg);
+                    ul.appendChild(li);
+                });
+
+                section.appendChild(ul);
+                container.appendChild(section);
+            });
+
+            const total = totalPassed + totalFailed;
+            const rate = total > 0 ? ((totalPassed / total) * 100).toFixed(1) : 0;
+
+            document.getElementById('statPassed').textContent = totalPassed;
+            document.getElementById('statFailed').textContent = totalFailed;
+            document.getElementById('statRate').textContent = `${rate}%`;
+            document.getElementById('statTime').textContent = `${durationMs} ms`;
+        }
+
+        function runSuites(suiteRunners) {
+            const start = performance.now();
+            const suites = suiteRunners.map(fn => fn());
+            const duration = Math.round(performance.now() - start);
+            renderSuites(suites, duration);
+        }
+
+        document.getElementById('runAllBtn').addEventListener('click', () => {
+            runSuites([runEvaluatorSuite, runOutsSuite, runSimulatorSuite]);
+        });
+
+        document.getElementById('runEvalBtn').addEventListener('click', () => {
+            runSuites([runEvaluatorSuite]);
+        });
+
+        document.getElementById('runOutsBtn').addEventListener('click', () => {
+            runSuites([runOutsSuite]);
+        });
+
+        document.getElementById('runSimBtn').addEventListener('click', () => {
+            runSuites([runSimulatorSuite]);
+        });
+
+        // Run automatically on page load
+        runSuites([runEvaluatorSuite, runOutsSuite, runSimulatorSuite]);
+    </script>
+</body>
+</html>
