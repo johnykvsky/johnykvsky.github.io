@@ -12,6 +12,7 @@ Demo: [https://johnykvsky.github.io][link-demo]
 - **JWT Encoder / Decoder**: decode JWT header and payload, inspect registered claims and time status, verify signatures, and encode/sign tokens.
 - **UUID Generator**: generate secure UUID v4 and UUID v7 values, validate UUID v1-8 strings, and inspect timestamp details for time-based UUIDs.
 - **Timestamp Converter**: convert Unix timestamps to dates and dates to Unix timestamps, including timezone-aware date inputs.
+- **Texas Hold'em Poker Chances & Equity Calculator**: Cryptographically secure Texas Hold'em poker odds and equity calculator
 
 ## Design Goals
 
