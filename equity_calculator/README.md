@@ -161,7 +161,6 @@ Unlike naive calculators (which often suffer from kicker misidentification or ov
 ```
 ├── index.html        # Main HTML layout, poker felt table, and modal picker
 ├── README.md         # Documentation & mathematical background
-├── test.js           # Root test forwarder (runs test/run-all.js)
 ├── css/
 │   └── style.css     # Dark luxury poker table styling, responsive cards, suit colors
 ├── js/
@@ -201,8 +200,6 @@ The test suite covers 81 thorough test cases across modular test files in the `t
 ```bash
 # Run all 81 tests:
 node test/run-all.js
-# or:
-node test.js
 
 # Run individual test suites:
 node test/evaluator.test.js   # 44 tests: Hand hierarchy, kicker disambiguation, 7-card boards

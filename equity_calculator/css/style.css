@@ -39,11 +39,14 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 .container {
     width: 100%;
     max-width: 1200px;
+    min-width: 0;
 }
 
 /* Header */
@@ -502,14 +505,17 @@ header p {
 /* Street Progression Analytics Panel */
 .analytics-section {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 20px;
     margin-bottom: 24px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 @media (max-width: 900px) {
     .analytics-section {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
     }
 }
 
@@ -519,6 +525,10 @@ header p {
     border-radius: var(--radius-lg);
     padding: 20px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .analytics-title {
@@ -529,6 +539,8 @@ header p {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px 12px;
 }
 
 /* Street Timeline */
@@ -536,6 +548,8 @@ header p {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .timeline-step {
@@ -547,6 +561,9 @@ header p {
     align-items: center;
     justify-content: space-between;
     transition: all 0.2s ease;
+    min-width: 0;
+    gap: 10px;
+    box-sizing: border-box;
 }
 
 .timeline-step.active {
@@ -558,22 +575,27 @@ header p {
     display: flex;
     flex-direction: column;
     gap: 2px;
+    min-width: 0;
+    flex: 1;
 }
 
 .step-name {
     font-size: 0.95rem;
     font-weight: 700;
+    line-height: 1.25;
 }
 
 .step-subtext {
     font-size: 0.75rem;
     color: var(--text-muted);
+    line-height: 1.25;
 }
 
 .step-equity-badge {
     display: flex;
     align-items: center;
     gap: 12px;
+    flex-shrink: 0;
 }
 
 .step-win-pct {
@@ -587,6 +609,7 @@ header p {
     font-weight: 700;
     padding: 2px 8px;
     border-radius: 12px;
+    white-space: nowrap;
 }
 
 .step-delta.positive {
@@ -609,6 +632,8 @@ header p {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .hand-dist-item {
@@ -616,12 +641,16 @@ header p {
     align-items: center;
     gap: 10px;
     font-size: 0.85rem;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .hand-dist-name {
     width: 130px;
     color: var(--text-muted);
     font-weight: 500;
+    flex-shrink: 0;
 }
 
 .hand-dist-bar-container {
@@ -631,6 +660,7 @@ header p {
     border-radius: 6px;
     overflow: hidden;
     position: relative;
+    min-width: 0;
 }
 
 .hand-dist-bar {
@@ -646,6 +676,7 @@ header p {
     text-align: right;
     font-weight: 700;
     color: var(--text-main);
+    flex-shrink: 0;
 }
 
 /* Card Picker Modal */
@@ -664,6 +695,8 @@ header p {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s ease;
+    padding: 16px;
+    box-sizing: border-box;
 }
 
 .modal-overlay.open {
@@ -675,14 +708,16 @@ header p {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
-    width: 90%;
+    width: 100%;
     max-width: 580px;
+    max-height: calc(100vh - 32px);
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
     overflow: hidden;
     display: flex;
     flex-direction: column;
     transform: translateY(10px);
     transition: transform 0.2s ease;
+    box-sizing: border-box;
 }
 
 .modal-overlay.open .picker-modal {
@@ -695,12 +730,17 @@ header p {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .picker-title {
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--text-main);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .picker-close-btn {
@@ -711,6 +751,7 @@ header p {
     cursor: pointer;
     line-height: 1;
     padding: 4px;
+    flex-shrink: 0;
 }
 
 .picker-close-btn:hover {
@@ -722,6 +763,9 @@ header p {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    min-width: 0;
 }
 
 /* Step 1: Suits / Colors */
@@ -735,8 +779,11 @@ header p {
 
 .suit-picker-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 10px;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .suit-btn {
@@ -750,6 +797,8 @@ header p {
     gap: 6px;
     cursor: pointer;
     transition: all 0.15s ease;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .suit-btn:hover {
@@ -780,18 +829,25 @@ header p {
     font-size: 0.8rem;
     font-weight: 600;
     color: var(--text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
 }
 
 /* Step 2: Rank Picker Grid */
 .rank-picker-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: 8px;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 @media (max-width: 500px) {
     .rank-picker-grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }
 
@@ -809,6 +865,8 @@ header p {
     user-select: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: all 0.15s ease;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .rank-card-btn:hover:not(:disabled) {
@@ -853,6 +911,8 @@ header p {
     justify-content: space-between;
     align-items: center;
     background: #111827;
+    flex-shrink: 0;
+    box-sizing: border-box;
 }
 
 /* Progress indicator */
@@ -881,15 +941,19 @@ header p {
 /* Pot Odds & Decision Advisor */
 .pot-odds-inputs {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
     margin-bottom: 16px;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .pot-input-group {
     display: flex;
     flex-direction: column;
     gap: 6px;
+    min-width: 0;
 }
 
 .pot-input-group label {
@@ -908,6 +972,9 @@ header p {
     font-weight: 600;
     outline: none;
     transition: border-color 0.2s;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .pot-input-group input:focus {
@@ -922,6 +989,9 @@ header p {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .pot-stat-row {
@@ -929,6 +999,7 @@ header p {
     justify-content: space-between;
     align-items: center;
     font-size: 0.85rem;
+    gap: 8px;
 }
 
 .pot-stat-label {
@@ -938,6 +1009,7 @@ header p {
 .pot-stat-val {
     font-weight: 700;
     color: var(--text-main);
+    flex-shrink: 0;
 }
 
 .ev-badge {
@@ -946,6 +1018,7 @@ header p {
     padding: 4px 10px;
     border-radius: 12px;
     text-transform: uppercase;
+    flex-shrink: 0;
 }
 
 .ev-badge.positive {
@@ -971,6 +1044,8 @@ header p {
     flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 14px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .draw-badge {
@@ -981,9 +1056,11 @@ header p {
     border-radius: var(--radius-sm);
     font-size: 0.8rem;
     font-weight: 600;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 6px;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .draw-badge .outs-tag {
@@ -992,29 +1069,36 @@ header p {
     padding: 2px 6px;
     border-radius: 4px;
     font-size: 0.75rem;
+    flex-shrink: 0;
 }
 
 .outs-stat-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
     background: #111827;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     padding: 12px;
     text-align: center;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .outs-stat-box {
     display: flex;
     flex-direction: column;
     gap: 4px;
+    min-width: 0;
 }
 
 .outs-stat-label {
     font-size: 0.7rem;
     color: var(--text-muted);
     text-transform: uppercase;
+    white-space: normal;
+    word-break: break-word;
 }
 
 .outs-stat-val {
@@ -1041,6 +1125,9 @@ header p {
     opacity: 0;
     pointer-events: none;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    max-width: calc(100vw - 32px);
+    box-sizing: border-box;
+    text-align: center;
 }
 
 .toast-notification.show {
@@ -1054,6 +1141,8 @@ header p {
     display: flex;
     gap: 10px;
     align-items: center;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 @media (max-width: 540px) {
@@ -1074,6 +1163,9 @@ header p {
     outline: none;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     transition: border-color 0.2s;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .share-url-field:focus {
@@ -1082,4 +1174,254 @@ header p {
 
 .copy-icon {
     flex-shrink: 0;
+}
+
+/* Responsive adjustments for Tablets and Mobile */
+@media (max-width: 768px) {
+    .rank-picker-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    body {
+        padding: 12px 10px;
+    }
+
+    header h1 {
+        font-size: 1.35rem;
+        gap: 6px;
+    }
+
+    header p {
+        font-size: 0.82rem;
+    }
+
+    .analytics-card {
+        padding: 14px 12px;
+        border-radius: var(--radius-md);
+    }
+
+    .analytics-title {
+        font-size: 0.95rem;
+        margin-bottom: 12px;
+        gap: 6px 10px;
+    }
+
+    /* Card 1: Street-by-Street Timeline */
+    .timeline-step {
+        padding: 10px 12px;
+        gap: 8px;
+    }
+
+    .step-name {
+        font-size: 0.88rem;
+    }
+
+    .step-subtext {
+        font-size: 0.72rem;
+    }
+
+    .step-equity-badge {
+        gap: 8px;
+    }
+
+    .step-win-pct {
+        font-size: 1.05rem;
+    }
+
+    .step-delta {
+        font-size: 0.75rem;
+        padding: 2px 6px;
+    }
+
+    /* Card 2: Hero Final Hand Probabilities */
+    .hand-dist-item {
+        gap: 6px;
+        font-size: 0.78rem;
+    }
+
+    .hand-dist-name {
+        width: 95px;
+        font-size: 0.76rem;
+    }
+
+    .hand-dist-pct {
+        width: 44px;
+        font-size: 0.76rem;
+    }
+
+    .hand-dist-bar-container {
+        height: 10px;
+    }
+
+    /* Card 3: Draws & Outs */
+    .outs-stat-grid {
+        padding: 10px 6px;
+        gap: 4px;
+    }
+
+    .outs-stat-label {
+        font-size: 0.65rem;
+    }
+
+    .outs-stat-val {
+        font-size: 1rem;
+    }
+
+    .draws-list {
+        gap: 6px;
+        margin-bottom: 10px;
+    }
+
+    .draw-badge {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+        gap: 5px;
+    }
+
+    .draw-badge .outs-tag {
+        padding: 1px 5px;
+        font-size: 0.7rem;
+    }
+
+    /* Card 4: Pot Odds & Decision Advisor */
+    .pot-odds-inputs {
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+
+    .pot-input-group label {
+        font-size: 0.75rem;
+    }
+
+    .pot-input-group input {
+        padding: 7px 10px;
+        font-size: 0.88rem;
+    }
+
+    .pot-odds-results {
+        padding: 10px 12px;
+        gap: 6px;
+    }
+
+    .pot-stat-row {
+        font-size: 0.8rem;
+    }
+
+    .ev-badge {
+        font-size: 0.7rem;
+        padding: 3px 8px;
+    }
+
+    /* Modals Responsive Sizing */
+    .modal-overlay {
+        padding: 10px;
+    }
+
+    .picker-modal {
+        border-radius: var(--radius-md);
+        max-height: calc(100vh - 20px);
+    }
+
+    .picker-header {
+        padding: 12px 14px;
+    }
+
+    .picker-title {
+        font-size: 0.95rem;
+    }
+
+    .picker-body {
+        padding: 14px 12px;
+        gap: 14px;
+    }
+
+    .suit-picker-grid {
+        gap: 6px;
+    }
+
+    .suit-btn {
+        padding: 8px 4px;
+        border-width: 1.5px;
+        border-radius: var(--radius-sm);
+        gap: 4px;
+    }
+
+    .suit-btn .suit-symbol {
+        font-size: 1.5rem;
+    }
+
+    .suit-btn .suit-name {
+        font-size: 0.72rem;
+    }
+
+    .rank-picker-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 6px;
+    }
+
+    .rank-card-btn {
+        height: 56px;
+        padding: 2px;
+    }
+
+    .rank-card-btn .rank-symbol {
+        font-size: 1.05rem;
+    }
+
+    .rank-card-btn .rank-suit {
+        font-size: 0.82rem;
+    }
+
+    .picker-footer {
+        padding: 10px 14px;
+        gap: 8px;
+    }
+
+    .picker-footer .btn {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 340px) {
+    body {
+        padding: 10px 6px;
+    }
+
+    .analytics-card {
+        padding: 12px 8px;
+    }
+
+    .hand-dist-name {
+        width: 82px;
+        font-size: 0.72rem;
+    }
+
+    .hand-dist-pct {
+        width: 40px;
+        font-size: 0.72rem;
+    }
+
+    .step-equity-badge {
+        gap: 6px;
+    }
+
+    .step-win-pct {
+        font-size: 0.98rem;
+    }
+
+    .step-delta {
+        font-size: 0.7rem;
+        padding: 2px 4px;
+    }
+
+    .suit-btn .suit-name {
+        display: none;
+    }
+
+    .suit-btn .suit-symbol {
+        font-size: 1.8rem;
+    }
 }
