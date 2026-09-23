@@ -20,6 +20,7 @@
     <meta name="twitter:title" content="Texas Hold'em Poker Odds &amp; Equity Calculator">
     <meta name="twitter:description" content="Real-time Texas Hold'em equity calculator with exact combinatorial math, draws &amp; outs detection, authentic card burning, and pot odds advisor.">
 
+    <link rel="stylesheet" href="../assets/toolkit/tool.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -29,12 +30,19 @@
         <div id="simProgressFill" class="sim-progress-fill"></div>
     </div>
 
-    <div class="container">
-        <!-- Header -->
-        <header>
+    <!-- Standardized Topbar Header with Theme Toggle -->
+    <header class="topbar">
+        <div>
             <h1>♠ Texas Hold'em Poker Chances Calculator ♥</h1>
             <p>Real-time Monte Carlo equity calculator with cryptographically secure shuffling</p>
-        </header>
+        </div>
+        <div class="topbar-actions">
+            <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="true">Light</button>
+        </div>
+    </header>
+
+    <main class="app">
+        <div class="container">
 
         <!-- Controls Bar -->
         <div class="controls-bar">
@@ -70,7 +78,8 @@
 
             <div class="button-group">
                 <button id="calcBtn" class="btn btn-primary">
-                    <span>⚡ Run Simulation</span>
+                    <span class="btn-icon-lightning">⚡</span>
+                    <span>Run Simulation</span>
                 </button>
                 <button id="shareBtn" class="btn btn-secondary" title="Copy shareable link for this hand setup">
                     <span>📋 Share Hand</span>
@@ -314,6 +323,7 @@
             </div>
         </div>
     </div>
+    </main>
 
     <!-- Toast Notification -->
     <div id="toastNotification" class="toast-notification"></div>
@@ -399,6 +409,14 @@
     </div>
 
     <!-- Scripts -->
+    <script>
+        try {
+            if (!localStorage.getItem('tool-theme')) {
+                localStorage.setItem('tool-theme', 'dark');
+            }
+        } catch (e) {}
+    </script>
+    <script src="../assets/toolkit/tool.js"></script>
     <script src="js/cards.js"></script>
     <script src="js/evaluator.js"></script>
     <script src="js/outs.js"></script>

@@ -70,6 +70,11 @@ This application calculates real-time winning odds, tie probabilities, and total
 10. **Zero Heavy Dependencies**:
     - Built entirely with vanilla HTML5, modern CSS3, and ES6+ JavaScript. No Angular, React, Vue, or heavy node modules required.
 
+11. **Dual Theme Support (Dark & Light Mode)**:
+    - One-click theme toggle in the topbar (`Light` / `Dark`) with automatic persistence via `localStorage`.
+    - **Dark Theme (Default)**: Authentic casino emerald green felt table, dark `#18202c` card panels, deep felt-green simulation button, and gold accents.
+    - **Light Theme**: Modern tournament ice-slate blue felt table, crisp white panels, vibrant royal blue simulation button, and high-contrast slate typography.
+
 ---
 
 ## 🎮 How to Use
@@ -90,7 +95,9 @@ This application calculates real-time winning odds, tie probabilities, and total
    - By default, opponents hold random unknown cards. Click any opponent's card slot to assign specific cards if you want to test against known holdings (e.g., $AA$ vs $KK$).
 6. **(Optional) Share Hand**:
    - Click **📋 Share Hand** to copy a direct URL to this exact hand scenario.
-7. **Reset Table**:
+7. **Toggle Theme**:
+   - Click the **Light / Dark** button in the topbar at any time to switch themes. Your preference is automatically saved.
+8. **Reset Table**:
    - Click **↺ Reset Table** at any time to clear all cards and reset inputs.
 
 ---
